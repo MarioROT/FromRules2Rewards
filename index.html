@@ -33,15 +33,51 @@
 
       <!-- ------------- Slide 1 ------------------ -->
       <section>
+        <section>
+            <h2>Motivation</h2>
+            <ul class="fragment fade-right">
+              <li class="items fragment" align="justify">Technology evolution has enabled safer, more efficient and reliable transportation.</li>
+              <li class="items fragment" align="justify">Driving is generally considered a manageable task for most people. Replicate this ability through autonomous systems present sigificantly more complex challenge.</li>
+              <li class="items fragment" align="justify">Among all the challenges in auonomous driving, path planning remain some critical ones</li>
+            </ul>
+              <img class="fragment" src="./assets/avoid_water.png" alt="Italian Trulli" style="max-width: 32%; height: auto;">
+              <img class="fragment" src="./assets/highway_merging.png" alt="Italian Trulli" style="max-width: 33%; height: auto;">
+              <img class="fragment" src="./assets/road_obstacles.png" alt="Italian Trulli" style="max-width: 33%; height: auto;">
+            <p class="fragment" style="font-size: 30px;">Requirements: Real-time decision-making | Adaptability | Safety</p>
+        </section>
+
+        <section>
           <h2>Motivation</h2>
-          <ul class="fragment fade-right">
-            <li class="items fragment" align="justify">Technology evolution has enabled safer, more efficient and reliable transportation.</li>
-            <li class="items fragment" align="justify">Driving is generally considered a manageable task for most people. Replicate this ability through autonomous systems present sigificantly more complex challenge.</li>
-            <li class="items fragment" align="justify">Among all the challenges in auonomous driving, path planning remain some critical ones</li>
-          </ul>
-            <img class="fragment" src="./assets/avoid_water.png" alt="Italian Trulli" style="max-width: 32%; height: auto;">
-            <img class="fragment" src="./assets/highway_merging.png" alt="Italian Trulli" style="max-width: 33%; height: auto;">
-            <img class="fragment" src="./assets/road_obstacles.png" alt="Italian Trulli" style="max-width: 33%; height: auto;">
+          <p>Path planning as core function of autonomy involves generating an optimal and safe trajectory for a vehicle based on environmental and traffic constrains
+          </p>
+          <div class="left">
+            <ul class="fragment fade-down items">
+              <li class="items" align="justify" style="color: #3B444B;"><b>Clasical Approach</b></li>
+              <ul>
+                <li align="justify">Predominantly <b>optimization-based</b></li>
+                <li align="justify">Demonstrated strong performance in <b>structured environments</b>.</li>
+                <li align="justify">Often <b>lack</b> of  <b>flexibility</b> and <b>situational awareness</b> needed to handle unpredictable or rapidly changing driving environments.</li>
+                <li align="justify"><b>Training process.</b> Pytorch based training pipeline that combines the optimization steps (backpropagation + evolutionary strategies) in the learning process.</li>
+              </ul>
+            </ul>
+          </div>
+          <div class="right">
+            <ul class="fragment fade-down items">
+              <li class="items" align="justify"><b>Learned-based Approach</b></li>
+              <ul>
+                <li align="justify">Techniques such as DRL and IL ofer potential for <b>adaptive, context-aware decision making</b>.</li>
+                <li align="justify"><b>Learn</b> complex behaviors through interaction with <b>simulated environments</b>.</li>
+                <li align="justify">Suffers from poor or null <b>explainability</b> on the predicitons made by the models.</li>
+              </ul>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+            <h2>Motivation</h2>
+            <p>Explore how learning-based planners (DRL & IL) can be integrated into a modular autonomous driving stack (Apollo)
+and evaluated within realistic simulation (CARLA)</p>
+        </section>
       </section>
 
       <!-- ------------- Slide 2 ------------------ -->
