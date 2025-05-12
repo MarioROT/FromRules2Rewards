@@ -252,3 +252,11 @@
   left: 0;
   width: 100%;
 }
+
+.slide-number {
+    font-size: 1.4rem;  /* Adjust size here */
+    font-weight: bold;
+    color: white;       /* Optional: change color for visibility */
+    bottom: 20px;       /* Optional: adjust position */
+    right: 30px;
+  }
