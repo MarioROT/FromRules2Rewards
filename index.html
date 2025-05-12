@@ -43,21 +43,19 @@
               <img class="fragment" src="./assets/avoid_water.png" alt="Italian Trulli" style="max-width: 32%; height: auto;">
               <img class="fragment" src="./assets/highway_merging.png" alt="Italian Trulli" style="max-width: 33%; height: auto;">
               <img class="fragment" src="./assets/road_obstacles.png" alt="Italian Trulli" style="max-width: 33%; height: auto;">
-            <p class="fragment" style="font-size: 30px;">Requirements: Real-time decision-making | Adaptability | Safety</p>
+              <p class="fragment" style="font-size: 30px;">Requirements: <i>Real-time decision-making</i> | <i>Adaptability</i> | <i>Safety</i></p>
         </section>
 
         <section>
           <h2>Motivation</h2>
-          <p>Path planning as core function of autonomy involves generating an optimal and safe trajectory for a vehicle based on environmental and traffic constrains
-          </p>
+          <p>Path planning as core function of autonomy involves <i>generating an optimal and safe trajectory</i> for a vehicle based on environmental and traffic constrains.</p>
           <div class="left">
             <ul class="fragment fade-down items">
               <li class="items" align="justify" style="color: #3B444B;"><b>Clasical Approach</b></li>
               <ul>
-                <li align="justify">Predominantly <b>optimization-based</b></li>
-                <li align="justify">Demonstrated strong performance in <b>structured environments</b>.</li>
-                <li align="justify">Often <b>lack</b> of  <b>flexibility</b> and <b>situational awareness</b> needed to handle unpredictable or rapidly changing driving environments.</li>
-                <li align="justify"><b>Training process.</b> Pytorch based training pipeline that combines the optimization steps (backpropagation + evolutionary strategies) in the learning process.</li>
+                <li align="justify">Predominantly <i>optimization-based</i>.</li>
+                <li align="justify">Demonstrated strong performance in <i>structured environments</i>.</li>
+                <li align="justify">Often <i>lack</i> of  <i>flexibility</i> and <i>situational awareness</i> needed to handle unpredictable or rapidly changing driving environments.</li>
               </ul>
             </ul>
           </div>
@@ -65,9 +63,9 @@
             <ul class="fragment fade-down items">
               <li class="items" align="justify"><b>Learned-based Approach</b></li>
               <ul>
-                <li align="justify">Techniques such as DRL and IL ofer potential for <b>adaptive, context-aware decision making</b>.</li>
-                <li align="justify"><b>Learn</b> complex behaviors through interaction with <b>simulated environments</b>.</li>
-                <li align="justify">Suffers from poor or null <b>explainability</b> on the predicitons made by the models.</li>
+                <li align="justify">Techniques such as DRL and IL ofer potential for <i>adaptive, context-aware decision making</i>.</li>
+                <li align="justify"><i>Learn</i> complex behaviors through interaction with <i>simulated environments</i>.</li>
+                <li align="justify">Suffers from poor or null <i>explainability</i> on the predicitons made by the models.</li>
               </ul>
             </ul>
           </div>
@@ -75,37 +73,822 @@
 
         <section>
             <h2>Motivation</h2>
-            <p>Explore how learning-based planners (DRL & IL) can be integrated into a modular autonomous driving stack (Apollo)
-and evaluated within realistic simulation (CARLA)</p>
+            <p>Explore how learning-based planners (DRL & IL) can be integrated into a modular autonomous driving stack (Apollo) and evaluated within realistic simulation (CARLA)</p>
         </section>
       </section>
 
       <!-- ------------- Slide 2 ------------------ -->
       <section>
         <h2>Research Aims & Objectives</h2>
+        <p style="font-size: 32px;">Evaluate the effectiveness of AI-based path planning using DRL and IL models integrated into the Apollo framework, and benchmark them against the native EM Planner using CARLA simulation.</p>
+        <ul class="items">
+          <li class="fragment" lign="justify" style="font-size: 20px;"><b>Develop AI-based Path Planners.</b> Implement DRL and IL models for trajectory genration.</li>
+          <li class="fragment" align="justify" style="font-size: 20px;"><b>Integrate into Apollo Planning Stack.</b> Embed the model to work as an alternative to the EM planner.</li>
+          <li class="fragment" align="justify" style="font-size: 20px;"><b>Simulate Driving Scenarios in CARLA.</b> Test cases such as lane following, intersection handling and traffic interactions.</li>
+          <li class="fragment" align="justify" style="font-size: 20px;"><b>Evaluate performance.</b> Compare models using metrics such as: route completion, collition rate, rule compliance and planning latency.</li>
+        </ul>
       </section>
 
       <!-- ------------- Slide 3 ------------------ -->
       <section>
-        <h2>Background</h2>
+        <h2>Proposed Solution</h2>
+        <ul class="items">
+          <li class="fragment" lign="justify" style="font-size: 25px;">Understand Apollo’s architecture, focusing on the planning module's structure and fucntionalities.</li>
+          <li class="fragment" align="justify" style="font-size: 25px;">Take current DRL/IL models designed for End-to-End autonomous driving and adapt them to be integrated into the Apollo planning stack.</li>
+          <li class="fragment" lign="justify" style="font-size: 25px;">Define specific routes within the avalialble CARLA environments.</li>
+          <li class="fragment" lign="justify" style="font-size: 25px;">Train/Refine the models in CARLA to handle dynamic on-road conditions.</li>
+          <li class="fragment" align="justify" style="font-size: 25px;">Evaluate the AI-based planners using specialized metrics and compare their performance to Apollo’s built-in EM planner.</li>
+        </ul>
+        <table class="fragment styled-table">
+          <thead>
+              <tr>
+                  <th>Tool / Framework</th>
+                  <th>Role in the System</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td><strong>Apollo (v8.0)</strong></td>
+                  <td>Autonomous driving stack: baseline planning, control, and perception modules.</td>
+              </tr>
+              <tr>
+                  <td><strong>CARLA (0.9.14)</strong></td>
+                  <td>High-fidelity simulator for training and testing in realistic urban scenarios.</td>
+              </tr>
+              <tr>
+                  <td><strong>Latent SAC</strong></td>
+                  <td>DRL algorithm using a VAE + SAC in a learned latent space.</td>
+              </tr>
+              <tr>
+                  <td><strong>TransFuser++</strong></td>
+                  <td>Imitation Learning model with transformer-based sensor fusion.</td>
+              </tr>
+              <tr>
+                  <td><strong>TensorFlow & PyTorch</strong></td>
+                  <td>Deep learning libraries used for training and inference.</td>
+              </tr>
+              <tr>
+                  <td><strong>CyberRT + Python</strong></td>
+                  <td>Middleware and integration layer between Apollo and external planners.</td>
+              </tr>
+          </tbody>
+        </table>
       </section>
 
       <!-- ------------- Slide 4 ------------------ -->
       <section>
-        <h2>Methodology</h2>
+        <section>
+          <h2>Background</h2>
+        </section>
+
+        <!-- <section> -->
+        <!--   <h4>What is Planning in Robotics and Autonomous Driving?</h4> -->
+        <!--   <p style="font-size: 32px;"><i>Planning</i> is the process of <i>selecting a sequence of actions</i> that transform a system <i>from an initial state to a desired goal state</i>, respecting constraints and optimizing objectives.</p> -->
+        <!--   <ul class="fade-down items"> -->
+        <!--     <li class="items" align="justify" style="color: #3B444B;"><b>In Autonomous Driving:</b></li> -->
+        <!--     <ul class="fragment"> -->
+        <!--       <!- <li align="justify"><i>Planning</i> = determining a collition-free path for an agent within a complex dynamic environement.</li> -> -->
+        <!--       <li align="justify"><i>Planning</i> = determine how to mofe safely and efficiently within a complex dynamic environement.</li> -->
+        <!--       <li align="justify">In AD systems it is usually split into:</li> -->
+        <!--       <ul>  -->
+        <!--         <li align="justify"><i>Route Planning</i>. Long-term geometric path on the road network.</li> -->
+        <!--         <li align="justify"><i>Behavior Planning</i>. General motion commands (e.g. yield, overtake, stop, turn right/left).</li> -->
+        <!--         <li align="justify"><i>Trajectory Planning</i>. Precise motion plan that incorporates vehicle kinematics and dynamics to generate feasible commands to follow in the near term.</li> -->
+        <!--         <ul>  -->
+        <!--           <li align="justify"> (<i>Trajectory Planning</i> + <i>Tajectory Timing</i>).</li> -->
+        <!--         </ul>  -->
+        <!--       </ul>  -->
+        <!--     </ul> -->
+        <!--     <li class="items" align="justify"><b>Challenges</b></li> -->
+        <!--     <ul class="fragment"> -->
+        <!--       <li align="justify">Must account for traffic rules, dynamic obstacles, vehicle limits, and safety margins.</li> -->
+        <!--       <li align="justify">Needs to operate in real time, ofter under uncertainty and partial observability.</li> -->
+        <!--     </ul> -->
+        <!--   </ul> -->
+        <!-- </section> -->
+
+        <!-- <section> -->
+        <!--   <h4>What is Planning in Robotics and Autonomous Driving?</h4> -->
+        <!--   <p style="font-size: 32px;"><i>Planning</i> is the process of <i>selecting a sequence of actions</i> that transform a system <i>from an initial state to a desired goal state</i>, respecting constraints and optimizing objectives.</p> -->
+        <!--   <ul class="fade-down items"> -->
+        <!--     <li class="items" align="justify" style="color: #3B444B;"><b>In Autonomous Driving:</b></li> -->
+        <!--     <ul class="fragment"> -->
+        <!--       <!- <li align="justify"><i>Planning</i> = determining a collition-free path for an agent within a complex dynamic environement.</li> -> -->
+        <!--       <li align="justify"><i>Planning</i> = determine how to mofe safely and efficiently within a complex dynamic environement.</li> -->
+        <!--       <li align="justify">In AD systems it is usually split into:</li> -->
+        <!--       <div style="display: flex; align-items: center; justify-content: center;">   -->
+        <!--         <img src="./assets/Planning tasks.png" alt="Italian Trulli" style="width: 40%;"> -->
+        <!--       </div> -->
+        <!--         <ul>  -->
+        <!--           <li align="justify"> (<i>Trajectory Planning</i> + <i>Tajectory Timing</i>).</li> -->
+        <!--         </ul>  -->
+        <!--     </ul> -->
+        <!--     <li class="items" align="justify"><b>Challenges</b></li> -->
+        <!--     <ul class="fragment"> -->
+        <!--       <li align="justify">Must account for traffic rules, dynamic obstacles, vehicle limits, and safety margins.</li> -->
+        <!--       <li align="justify">Needs to operate in real time, ofter under uncertainty and partial observability.</li> -->
+        <!--     </ul> -->
+        <!--   </ul> -->
+        <!-- </section> -->
+
+        <section>
+          <h4>What is Planning in Robotics and Autonomous Driving?</h4>
+          <p style="font-size: 32px;"><i>Planning</i> is the process of <i>selecting a sequence of actions</i> that transform a system <i>from an initial state to a desired goal state</i>, respecting constraints and optimizing objectives.</p>
+          <ul class="fade-down items">
+          <div class="left">
+          <ul class="fade-down items">
+            <li class="items" align="justify" style="color: #3B444B;"><b>In Autonomous Driving:</b></li>
+            <ul class="fragment">
+              <!-- <li align="justify"><i>planning</i> = determining a collition-free path for an agent within a complex dynamic environement.</li> -->
+              <li align="justify"><i>Planning</i> = determine how to move safely and efficiently within a complex dynamic environement.</li>
+              <li align="justify">In AD systems it is usually splitted into ------> </li>
+                <ul> 
+                  <li align="justify"> (<i>trajectory planning</i> + <i>tajectory timing</i>).</li>
+                </ul> 
+            </ul>
+            <li class="items" align="justify"><b>Challenges</b></li>
+            <ul class="fragment">
+              <li align="justify">Must account for traffic rules, dynamic obstacles, vehicle limits, and safety margins.</li>
+              <li align="justify">Needs to operate in real time, ofter under uncertainty and partial observability.</li>
+            </ul>
+          </ul>
+          </div>
+          <div class="right" style="display: flex;  flex-direction: column; align-items: center; justify-content: center;">
+            <img src="./assets/Planning tasks.png" alt="Italian Trulli" style="width: 90%; margin-bottom: 15px;">
+            <p style="font-size: 15px; margin-top: 0px; ">Path planning bridges prediction and control in modular AV pipelines.</p>
+          </div>
+        </section>
+
+       <section>
+          <h3> Classical Planning in Autonomous Driving</h3>
+          <div class="slide-subtitle">
+            Deterministic & interpretable approaches, ideal for structured environments.
+          </div>
+
+          <div class="classical-grid">
+            <!-- Left Column -->
+            <div class="classical-column">
+              <div class="fragment block-content">
+                <div class="block-title">📌 Graph-Based Search</div>
+                Grid or graph discretization + <i>A*</i>, <i>Dijkstra</i>.<br>
+                Fast, complete, but often ignores dynamics.<br>
+                <em>Advanced: Hybrid A*, State Lattice, D*</em>
+              </div>
+
+              <div class="fragment block-content">
+                <div class="block-title">📌 Sampling-Based</div>
+                Random exploration: <i>RRT</i>, <i>PRM</i>.<br>
+                Good for unstructured/tight spaces.<br>
+                Requires smoothing or heuristics.
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class=" fragment classical-column">
+              <div class="block-content">
+                <div class="block-title">📌 Optimization / MPC</div>
+                Solve constrained problems, minimize cost (<i>time</i>, <i>jerks</i>).<br>
+                Widely used: <i>Model Predictive Control (MPC)</i>.
+              </div>
+
+              <div class="fragment block-content">
+                <div class="block-title">📌 Analytical / Curve-Based</div>
+                Fast methods: splines, polynomials, clothoids.<br>
+                <i>APFs</i> model agents as particles — fast but may get stuck.
+              </div>
+            </div>
+          </div>
+
+          <div class="fragment footer-note">
+            📌 <strong>Modern Enhancements</strong>: CHOMP, TrajOpt, BIT* improve optimality.<br>
+            Blend control, sampling, optimization — but still rule-driven.<br><br>
+            <i>→ Poor generalization under ambiguity | Hard to tune manually for all edge cases.</i>
+            <!-- <i>→ Need for learning-based approaches to handle unpredictability.</i> -->
+          </div>
+        </section>
+
+        <!-- <section> -->
+        <!--   <h2>Learning-Based Planners</h2> -->
+        <!--   <div class="slide-subtitle"> -->
+        <!--     DRL and IL offer data-driven, adaptive policies for complex behaviors. -->
+        <!--   </div> -->
+
+        <!--   <div class="fragment classical-grid"> -->
+        <!--     <div class="block-content"> -->
+        <!--     <div class="block-title">📌 Imitation Learning (IL)</div> -->
+        <!--     <ul class="items"> -->
+        <!--       <li>Learns from expert demonstrations.</li> -->
+        <!--       <li>Faster learning, stable, and expert-aligned, but:.</li> -->
+        <!--       <ul class="items"> -->
+        <!--         <li>Limited by <i>dataset coverage</i>.</li> -->
+        <!--         <li>Can inherit expert mistakes or biases.</li> -->
+        <!--       </ul> -->
+        <!--     </ul> -->
+        <!--   </div> -->
+
+        <!--     <div class="classical-column"> -->
+        <!--       <div class="block-content"> -->
+        <!--         <div class="block-title">📌 Deep Reinforcement Learning (DRL)</div> -->
+        <!--         <ul class="items"> -->
+        <!--           <li>Learns via interaction and reward maximization.</li> -->
+        <!--           <li>Can discover optimal strategies, but:</li> -->
+        <!--           <ul class="items"> -->
+        <!--             <li>Sample inefficient and unstable.</li> -->
+        <!--             <li>Risky exploration—feasible only in simulation</li> -->
+        <!--           </ul> -->
+        <!--         </ul> -->
+        <!--       </div> -->
+        <!--     </div> -->
+        <!--   </div> -->
+
+        <!--   <table class="fragment styled-table" style="margin-top: 30px;"> -->
+        <!--     <thead> -->
+        <!--       <tr> -->
+        <!--         <th>Key Benefits</th> -->
+        <!--         <th>Drawbacks</th> -->
+        <!--       </tr> -->
+        <!--     </thead> -->
+        <!--     <tbody> -->
+        <!--       <tr> -->
+        <!--         <td>Learns <i>adaptable, context-aware</i> behavior</td> -->
+        <!--         <td>Requires <i>extensive training</i> & simulation infrastructure</td> -->
+        <!--       </tr> -->
+        <!--       <tr> -->
+        <!--         <td>Handles <i>uncertainty</i> and multi-agent environments</td> -->
+        <!--         <td>Often lacks <i>formal safety guarantees</i></td> -->
+        <!--       </tr> -->
+        <!--       <tr> -->
+        <!--         <td><i>Real-time inference</i> once trained</td> -->
+        <!--         <td>Can <i>overfit</i> or act unpredictably in novel settings</td> -->
+        <!--       </tr> -->
+        <!--     </tbody> -->
+        <!--   </table> -->
+        <!-- </section> -->
+
+        <section>
+          <h2>Learning-Based Planners</h2>
+          <div class="slide-subtitle" style="margin-bottom: 1%;">
+            DRL and IL offer data-driven, adaptive policies for complex behaviors.
+          </div>
+
+          <div class="fragment classical-grid" style="margin-bottom: 1%;">
+            <!-- Left Column -->
+            <div class="classical-column" style="margin-bottom: 0%;">
+              <div class="block-content" style="margin-bottom: 1%;">
+                <div class="block-title">📌 Imitation Learning (IL)</div>
+                <img src="assets/DRL_2.png" alt="Apollo Stack Diagram" style="max-width: 63%; height: auto; margin: 0%;" />
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="classical-column" style="margin-bottom: o%;">
+              <div class="block-content" style="margin-bottom: 1%;">
+                <div class="block-title">📌 Deep Reinforcement Learning (DRL)</div>
+                <img src="assets/IL_3.png" alt="Apollo Stack Diagram" style="max-width: 58%; height: auto; margin: 0%;" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Benefits vs Trade-Offs Table -->
+          <table class="fragment styled-table" style="margin-top: 30px;">
+            <thead>
+              <tr>
+                <th>Key Benefits</th>
+                <th>Drawbacks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Learns <i>adaptable, context-aware</i> behavior</td>
+                <td>Requires <i>extensive training</i> & simulation infrastructure</td>
+              </tr>
+              <tr>
+                <td>Handles <i>uncertainty</i> and multi-agent environments</td>
+                <td>Often lacks <i>formal safety guarantees</i></td>
+              </tr>
+              <tr>
+                <td><i>Real-time inference</i> once trained</td>
+                <td>Can <i>overfit</i> or act unpredictably in novel settings</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+
+          <section>
+            <h3>APOLLO: A Modular Autonomous Driving Stack</h3>
+            <div class="slide-subtitle">Open-source full-stack AV system (Baidu)</div>
+            <ul class="fade-down items">
+              <li align="justify">Built on <i>Cyber RT</i> – real-time pub-sub middleware for module communication.</li>
+              <li align="justify">Modular Design</li>
+                <ul> 
+                  <li align="justify">Each component operates <i>independently</i>.</li>
+                  <li align="justify">Enables testing, debugging, and replacing modules in <i>isolation</i>.</li>
+                </ul> 
+            </ul>
+
+
+            <!-- Core Pipeline Table -->
+            <!-- <div class="fragment fade-in block-content fade-out" data-fragment-index="0"> -->
+          <div class="stack-container">
+            <div id="apollo-table" class="fragment fade-in block-content fade-out" data-fragment-index="0">
+              <div class="block-title">Core Pipeline</div>
+              <table class="styled-table" style="margin-top: 10px;">
+                <thead>
+                  <tr>
+                    <th>Module</th>
+                    <th>Role</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Perception</strong></td>
+                    <td>Detect lanes, traffic lights, vehicles, pedestrians</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Localization</strong></td>
+                    <td>Fuse GPS, IMU, LiDAR for cm-level position</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Prediction</strong></td>
+                    <td>Forecast future motion of nearby agents</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Routing</strong></td>
+                    <td>Compute high-level driving route from HD Map</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Planning</strong></td>
+                    <td>Generate short-term, safe, and smooth trajectories</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Control</strong></td>
+                    <td>Convert planned path into vehicle actuation commands</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Image appears after -->
+            <!-- <div class="fragment fade-in" data-fragment-index="0" style="text-align: center; margin-top: 20px;"> -->
+            <div id="apollo-image" class="fragment fade-in" data-fragment-index="1" style="text-align: center;">
+              <img src="assets/Apollo_Modules_Interaction.png" alt="Apollo Stack Diagram" style="max-width: 60%; height: auto; margin: 0%;" />
+            </div>
+          </div>
+
+          <!-- Summary -->
+          <div class="fragment footer-note" style="margin-top: 0%;">
+            <i>Apollo</i> is widely used for research and prototyping due to its open source availability,<br> flexibility,
+            traceability, and support for various planning architectures.
+          </div>
+        </section>
+
+
+        <section>
+          <h2 class="slide-title">Planning in Apollo</h2>
+          <!-- <div class="block-title">Architecture: Hierarchical</div> -->
+              <ul class="items">
+                <li>Planning module = decision-making core (~10 Hz)</li>
+                <li>Takes input from: <i>Perception, Prediction, Localization, Routing, HD Maps, Chassis</i></li>
+              </ul>
+          <div class="fragment"> 
+            <div class="left">
+              <div class="block-content">
+                <ul class="items">
+                  <li><b>Planning architecture</b>:</li>
+                  <ul class="fragment items">
+                    <li><i>Scenario Manager</i>: selects driving context (<em>lane follow, stop sign</em>)</li>
+                    <li><i>Deciders</i>: enforce <i>traffic rules</i> and constraints</li>
+                    <li><i>Optimizers</i> (e.g., <i>EM Planner</i>): generate smooth trajectories</li>
+                  </ul>
+                  <li><b>EM Planner (Expectation-Maximization)</b></li>
+                  <ul class="fragment items">
+                    <li><i>SL (Space-Lane)</i> → lateral trajectory planning.</li>
+                    <li><i>ST (Space-Time)</i> → speed profile planning</li>
+                    <li>Iterative EM cycle <i>refines trajectory until convergence</i>.</li>
+                    <li>Supports multi-lane evaluation and fallback strategies.</li>
+                  </ul>
+                </ul> 
+              </div>
+            </div>
+
+            <div class="right">
+              <img src="assets/EM_iteration.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 8% 5%;" />
+            </div> 
+          </div> 
+        </section>
+
+       <section>
+          <h3> Simulation Environment: CARLA</h3>
+          <div class="slide-subtitle">
+            CARLA is an open-source AV simulator developed by CVC-UAB, designed for research and development in autonomous driving.
+          </div>
+
+          <div class="classical-grid">
+            <!-- Left Column -->
+            <div class="classical-column">
+              <div class="block-content">
+                <div class="block-title">📌 Key Characteristics</div>
+                <ul class="fragment items">
+                  <li>Built on Unreal Engine.</li>
+                  <li>High-fidelity urban environments.</li>
+                  <li>Accurate vehicle dynamics.</li>
+                  <li>Realistic rendering and sensor simulation.</li>
+                  </ul>
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="classical-column">
+              <div class="block-content">
+                <div class="block-title">📌 Key Features for this Project</div>
+                <ul class="fragment items">
+                  <li>Simulates diverse and challenging road scenarios.</li>
+                  <li>Wide range of sensors: RGB, LiDAR, IMU, GPS</li>
+                  <li>Modular server–client architecture:</li>
+                  <ul class="items">
+                    <li>Server: runs simulation.</li>
+                    <li>Client: control agents, logs data, allow integrations.</li>
+                  </ul>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="fragment footer-note" style="margin: 0%;">
+            <img src="assets/CARLA_SIM.png" alt="Apollo Stack Diagram" style="max-width: 50%; height: auto; margin: 0%;" />
+          </div>
+        </section>
       </section>
 
       <!-- ------------- Slide 5 ------------------ -->
       <section>
-        <h2>Experimental Setup</h2>
+        <section>
+          <h2>Methodology</h2>
+        </section>
+
+        <section>
+          <h3>DRL Model: Latent Soft Actor-Critic (L-SAC)</h3>
+          <div class="slide-subtitle">Combines a deep RL policy with a sequential latent representation of the scene.</div>
+          <ul class="fragment items">
+            <li><i>Inputs</i>: Front-view RGB camera + LiDAR BEV projection.</li>
+            <li><i>Latent Modeling</i>:</li>
+            <ul class="fragment items">
+              <li>Learns a compact environment state via variational inference.</li>
+              <li>Supports interpretable semantic mask decoding.</li>
+            </ul>
+            <li><i>Policy Learning</i>:</li>
+            <ul class="fragment items">
+              <li>Uses Soft Actor-Critic (SAC) with entropy regularization.</li>
+              <li>Outputs predicted trajectory displacements + target speeds.</li>
+              <li>Reward balances safety (collision, lane keeping) with comfort (smoothness, speed).</li>
+            </ul>
+          <li><i>Trajectory Output</i>:</li>
+            <ul class="fragment items">
+              <li>Displacements converted into full global trajectories.</li>
+              <li>Includes heading, curvature, acceleration, and timing for Apollo compatibility.</li>
+            </ul>
+          </ul>
+        </section>
+
+        <section>
+          <h3>IL Model: TransFuser++</h3>
+          <div class="slide-subtitle">Transformer-based Imitation Learning model for end-to-end urban driving.</div>
+          <div class="left">
+            <ul class="fragment items">
+              <li><i>Inputs</i>:</li>
+              <ul class="fragment items">
+                <li>RGB images (front-facing camera)</li>
+                <li>LiDAR BEV + auxiliary data (navigation commands, traffic lights)</li>
+              </ul>
+              <li><i>Fusion Strategy</i>:</li>
+              <ul class="fragment items">
+                <li>Modality-specific encoders.</li>
+                <li>Transformer attention for cross-modal fusion.</li>
+                <li>Decoder pooling to retain spatial structure.</li>
+              </ul>
+              <li><i>Predictions</i>:</li>
+              <ul class="fragment items">
+                <li>Waypoints (future positions relative to ego).</li>
+                <li>Discrete target speeds with confidence estimation.</li>
+              </ul>
+              <li><i>Training</i>:</li>
+              <ul class="fragment items">
+                <li>Supervised on expert trajectories from CARLA.</li>
+                <li>Losses on MSE (waypoints) and cross-entropy (speed bins).</li>
+              </ul>
+            </ul>  
+          </div>
+          <div class="right">
+            <img src="assets/Transfuserpp.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+            <p style="font-size: 15px; margin-top: 0px; ">TransFuser++ Architecture Overview.R eproduced from Jager et al. (2023b)</p>
+          </div>
+        </section>
+
+        <section>
+          <h3>System Integration: Bridging CARLA and Apollo</h3>
+          <div class="slide-subtitle">Transformer-based Imitation Learning model for end-to-end urban driving.</div>
+          <div class="fragment classical-grid" style="margin-bottom: 1%;">
+            <div class="classical-column" style="margin-bottom: 0%;">
+            <div class="block-content">
+              <div class="block-title">📌 CARLA–Apollo Bridge Setup</div>
+              <ul class="fragment items">
+                <li>A customized <i>carla_apollo_bridge</i> connects the CARLA simulator with the Apollo stack.</li>
+                <li>Translates simulated sensor data (pose, LiDAR, IMU, camera) to Apollo’s <i>cyberRT</i> format.</li>
+                <li>Sends Apollo's control/planning outputs back to CARLA for closed-loop simulation.</li>
+              </ul>
+            </div>
+            </div>
+            <div class="classical-column" style="margin-bottom: 0%;">
+            <div class="block-content">
+              <div class="block-title">📌 Key Requirements for Synchronization</div>
+              <ul class="fragment items">
+                <li><i>Synchronous mode</i>: Guarantees frame-by-frame consistency between CARLA and Apollo.</li>
+                <li><i>Matching vehicle profile</i>: Ensures geometry and dynamics between CARLA and Apollo align.</li>
+                <li><i>Timestamps and message formatting</i>: Prevents dropped messages and outdated data.</li>
+              </ul>
+            </div>
+
+          </div>
+          </div>
+          <div class="block-content">
+              <div class="block-title">📌 Pipeline Snapshot</div>
+              <ol class="fragment items">
+                <li>CARLA simulates environment.</li>
+                <li>Bridge feeds sensor data to Apollo.</li>
+                <li>Custom nodes handle data extraction, model inference, and trajectory publishing.</li>
+                <li>Apollo consumes predictions and actuates control.</li>
+              </ol>
+            </div>
+        </section>
+
+        <section>
+          <h3>Planner Pipeline: From Sensor Input <br>to Executable Trajectory</h3>
+            <div class="block-content">
+              <div class="block-title">📌 <i>bridge_model_node</i>: Data Extraction</div>
+              <ul class="fragment items">
+                <li>Subscribes to Apollo topics (pose, camera, LiDAR, GPS, routing).</li>
+                <li>Consolidates and repackages into a custom message format.</li>
+              </ul>
+            </div>
+
+          <div class="classical-grid" style="margin-bottom: 1%;">
+            <div class="classical-column" style="margin-bottom: 0%;">
+            <div class="block-content">
+              <div class="block-title">📌 <i>model_server</i>: Preprocessing + Inference</div>
+              <ul class="fragment items">
+                <li>Converts raw data into tensors:</li>
+                <ul>
+                <li>RGB: image → tensor.</li>
+                <li>LiDAR: BEV histogram.</li>
+                <li>Routing + GPS: target waypoint + navigation command.</li>
+                </ul>
+                <li>Feeds into DRL/IL model → returns waypoints & target speed.</li>
+              </ul>
+            </div>
+            </div>
+            <div class="classical-column" style="margin-bottom: 0%;">
+            <div class="block-content">
+              <div class="block-title">📌 <i>tfpp_planner_node</i>: Trajectory Synthesis</div>
+              <ul class="fragment items">
+                <li>Uses latest localization to convert predicted points to global coordinates.</li>
+                <li>Optionally applies spline smoothing.</li>
+                <li>Constructs complete <i>ADCTrajectory</i> message with:</li>
+                <ul>
+                  <li>Position, heading, curvature, speed, timestamps.</li>
+                </ul>
+                <li>Publishes to <i>/apollo/planning.</i></li>
+              </ul>
+            </div>
+          </div>
+          </div>
+           <div class="fragment footer-note">
+            If no prediction is received within 500ms, no trajectory is published to ensure safety.
+            <!-- <i>→ Need for learning-based approaches to handle unpredictability.</i> -->
+          </div>
+        </section>
+
+        <section>
+          <h3>Performance Evaluation: Metrics for Planning Quality</h3>
+            <div class="block-content">
+              <div class="block-title">📌 Driving Behavior Metrics (based on CARLA Leaderboard \cite{leaderboard2020})</div>             
+              <table class="fragment styled-table">
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>Metrics</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Effectiveness</strong></td>
+                    <td>Route Completion (RC), Driving Score (DS)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Safety</strong></td>
+                    <td>Vehicle (Veh) and Static (Stat) Object Collisions</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Rule Compliance</strong></td>
+                    <td>Infraction Score (IS), Red Light Violations (Red), Route Deviations (Dev)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Efficiency</strong></td>
+                    <td>Trip Duration (TD), Average Speed (AS)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          <div class="classical-grid" style="margin-bottom: 1%;">
+            <div class="classical-column" style="margin-bottom: 0%;">
+            <div class="block-content">
+              <div class="block-title">📌 Qualitative Assesments</div>
+              <ul class="fragment items">
+                <li>Trajectory visualizations.</li>
+                <li>Driving video clips.</li>
+                <li>Behavior and interaction analysis.</li>
+              </ul>
+            </div>
+            </div>
+            <div class="classical-column" style="margin-bottom: 0%;">
+            <div class="block-content">
+              <div class="block-title">📌 Apollo System-Level Metrics</div>
+              <ul class="fragment items">
+                <li><i>Planning Cycle Time</i>: Avg. time per trajectory planning cycle.</li>
+                <li><i>Planning Success Rate</i>: % of valid trajectory outputs.</li>
+                <li><i>Control Latency</i>: Delay between planning and control execution.</li>
+                <li><i>Planning Stability</i>: Consistency of system state (PAD readiness).</li>
+              </ul>
+            </div>
+          </div>
+          </div>
+        </section>
+
       </section>
 
       <!-- ------------- Slide 6 ------------------ -->
       <section>
-        <h2>Analysis & Discussion</h2>
+        <section>
+          <h2>Experimental Setup</h2>
+        </section>
+
+        <section>
+          <h3>Experimental Design & Setup</h3>
+
+          <div class="classical-grid" style="margin-bottom: 1%;">
+            <div class="classical-column" style="margin-bottom: 0%;">
+              <div class="block-content">
+                <div class="block-title">📌 Experimental Tracks</div>
+                <ul class="fragment items">
+                  <li>Three planning pipelines integrated and tested in Apollo:</li>
+                  <ul class="items">
+                    <li><i>Track A</i>: Classical EM Planner (baseline).</li>
+                    <li><i>Track B</i>: DRL-based Latent SAC model.</li>
+                    <li><i>Track C</i>: IL-based TransFuser++ model.</li>
+                  </ul>
+                </ul>
+              </div>
+              <div class="block-content">
+                <div class="block-title">📌 Simulation Environment</div>
+                <ul class="fragment items">
+                  <li>CARLA's Town01 and Town 03.</li>
+                  <li>Synchronous mode with fixed parameters.</li>
+                  <li>All planners (EM, DRL, IL) tested under identical conditions.</li>
+                </ul>
+              </div>
+              <div class="block-content">
+                <div class="block-title">📌 Planner Integration</div>
+                <ul class="fragment items">
+                  <li>Real-time sensor data provided to DRL and IL agents.</li>
+                  <li>Evaluation conducted through Apollo’s modular framework.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="classical-column" style="margin-bottom: 0%;">
+              <div class="block-content">
+                <div class="block-title">📌 Evaluation Scenario Design</div>
+                <ul class="fragment items">
+                  <li>Custom routes designed to reflect realistic urban driving challenges:</li>
+                  <ul class="items">
+                    <li>Lane following with dynamic traffic.</li>
+                    <li>Intersection handling with traffic lights.</li>
+                    <li>Obstacle-induced lane changes.</li>
+                  </ul>
+                </ul>
+              </div>
+              <div class="block-content">
+                <div class="block-title">📌 Checkpoint Strategy</div>
+                <ul class="fragment items">
+                  <li>Each route includes:</li>
+                  <ul class="items">
+                    <li>Start + End waypoints.</li>
+                    <li>Three intermediate checkpoints as entry points.</li>
+                  </ul>
+                  <li>Ensures full scenario coverage, even if the agent fails to finish.</li>
+                </ul>
+              </div>
+              <div class="block-content">
+                <div class="block-title">📌 Repetition for Reliability</div>
+                <ul class="fragment items">
+                  <li>Each segment executed 3 times per planner.</li>
+                  <li>Allows for assessment of consistency and generalization.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Experimental Routes: Route A (Town01)</h3>
+          <div class="left">
+            <img src="assets/routes/RouteT1_A1.png" alt="Apollo Stack Diagram" style="max-width: 90%; height: auto; margin: 0%;" />
+            <p style="font-size: 20px; margin-top: 0px; "><b>Top-down view of Route A layout.</b></p>
+          </div>
+          <div class="right">
+            <div class="classical-grid" style="margin-bottom: 1%;">
+              <div class="classical-column" style="margin-bottom: 0%;">
+                <div class="block-content">
+                  <div class="block-title">📌 Residential segment near Start.</div>
+                  <img src="assets/routes/Town1_1.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+                <div class="block-content">
+                  <div class="block-title">📌 Approaching traffic light intersection.</div>
+                  <img src="assets/routes/Town1_2.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+              </div>
+
+              <div class="classical-column" style="margin-bottom: 0%;">
+                <div class="block-content">
+                  <div class="block-title">📌 Right turn zone with occlusion.</div>
+                  <img src="assets/routes/Town1_3.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+                <div class="block-content">
+                  <div class="block-title">📌 Long straight way with limited visibility.</div>
+                  <img src="assets/routes/Town1_5.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+              </div>
+            </div>
+            <ul class="items">
+              <li><i>Environment</i>:</li>
+              <ul class="items">
+                <li>Suburban-style city with a structured road grid.</li>
+                <li>Mix of residential and semi-open areas.</li>
+                <li>Signalized intersections, sidewalks, and varied visibility zones.</li>
+              </ul>
+            </ul>
+          </div>
+        </section>
+        <section>
+          <h3>Experimental Routes: Route B (Town03)</h3>
+          <div class="left">
+            <br>
+            <img src="assets/routes/RouteT3_A1.png" alt="Apollo Stack Diagram" style="max-width: 90%; height: auto; margin: 0%;" />
+            <p style="font-size: 20px; margin-top: 0px; "><b>Top-down view of Route B layout.</b></p>
+          </div>
+          <div class="right">
+            <div class="classical-grid" style="margin-bottom: 1%;">
+              <div class="classical-column" style="margin-bottom: 0%;">
+                <div class="block-content">
+                  <div class="block-title">📌 Inclined entry road from start point.</div>
+                  <img src="assets/routes/Town3_1.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+                <div class="block-content">
+                  <div class="block-title">📌 Slope descent near residential sector.</div>
+                  <img src="assets/routes/Town3_3.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+              </div>
+
+              <div class="classical-column" style="margin-bottom: 0%;">
+                <div class="block-content">
+                  <div class="block-title">📌 Main roundabout in the urban core.</div>
+                  <img src="assets/routes/Town3_4.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+                <div class="block-content">
+                  <div class="block-title">📌 Wide intersection in the final segment.</div>
+                  <img src="assets/routes/Town3_5.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+              </div>
+            </div>
+            <ul class="items">
+              <li><i>Environment</i>:</li>
+              <ul class="items">
+                <li>Suburban-style city with a structured road grid.</li>
+                <li>Mix of residential and semi-open areas.</li>
+                <li>Signalized intersections, sidewalks, and varied visibility zones.</li>
+              </ul>
+            </ul>
+          </div>
+        </section>
       </section>
 
       <!-- ------------- Slide 7 ------------------ -->
+      <section>
+        <h2>Analysis & Discussion</h2>
+      </section>
+
+      <!-- ------------- Slide 8 ------------------ -->
       <section>
         <section>
           <h2>Conclusions</h2>
@@ -120,175 +903,24 @@ and evaluated within realistic simulation (CARLA)</p>
         </section>
       </section>
 
-      <!-- ------------- Slide 8 ------------------ -->
+      <!-- ------------- Slide 9 ------------------ -->
       <section>
         <h2>Acknowledgments</h2>
       </section>
 
-      <!-- ------------- Slide 9 ------------------ -->
+      <!-- ------------- Slide 10 ------------------ -->
       <section>
         <h2>Q&A</h2>
       </section>
 
-      <!-- ------------- Slide 1 ------------------ -->
-      <section>
-        <h2>Motivation</h2>
-        <p>Objective: Validate that the system can evolve cooperation among agents and evaluate metrics sustainability.
-        </p>
-        <ul>
-          <li class="items" align="justify"><b>Experimental Setup</b></li>
-          <ul class="fragment fade-right">
-            <li class="items" align="justify">Initialization of policy and reward network parameters and evolutionary.
-            </li>
-            <li class="items" align="justify">Learning parameters (mutation rates, selection process, learning rates,
-              etc.)</li>
-          </ul>
-          <li class="items" align="justify"><b>Experimental conditions</b></li>
-          <ul class="fragment fade-right">
-            <li class="items" align="justify">Shared Retrospective Reward Network + <i>Random Matchmaking</i></li>
-            <li class="items" align="justify">Shared Retrospective Reward Network + <i>Assortative Matchmaking</i></li>
-          </ul>
-        </ul>
-
-      </section>
-      <!-- ------------- Slide 1 ------------------ -->
-      <section>
-        <section>
-          <div class="content">
-            <div class="left">
-              <h2>In a nutshell</h2>
-              <br><br>
-              <ul>
-                <li class="items" align="justify"><b>Main Concept.</b> using multi-agent reinforcement
-                  learning (MARL) combined with evolutionary strategies to promote cooperative behavior among
-                  self-interested agents in intertemporal social dilemmas (ISDs)</li><br>
-                <li class="items" align="justify"><b>\(TotRwd = ExtRwd + IntRwd\).</b> Reward computed
-                  by considering Environment Feedback \(+\) Collective Welfare Features.</li>
-              </ul>
-            </div>
-            <div class="right">
-              <br>
-              <br>
-              <img src="./assets/AgentForm.png" alt="Italian Trulli">
-            </div>
-          </div>
-        </section>
-        <section>
-          <div class="content">
-            <div class="left">
-              <h2>In a nutshell</h2>
-              <ul>
-                <li class="items" align="justify"><b>Training process.</b>: a system composed of a
-                  MARL, Evolutionary Strategies and solve Intertemporal Social Dilemmas by using Intrinsic Motivations.
-                </li><br>
-                <li class="items" align="justify"><b>Environments.</b>: Cleanup and Harvest games.</li> <br>
-                <li class="items" align="justify"><b>Experiments.</b>: Random vs Assortative Matching
-                  Restrospective vs Prospective Reward Calculation, Shared vs Individual Reward Network.
-                </li>
-              </ul>
-            </div>
-            <div class="right">
-              <br>
-              <br>
-              <img src="./assets/Games2.png" alt="Italian Trulli">
-            </div>
-          </div>
-        </section>
-      </section>
-
-      <!-- ------------- Slide 2 ------------------ -->
-      <section>
-        <section>
-          <div class="content">
-            <div class="left">
-              <img src="./assets/AgentForm2.png" alt="Italian Trulli">
-              <!-- <p>Source: Dedale project (https://dedale.gitlab.io/page/dedale/presentation/)</p> -->
-            </div>
-            <div class="left">
-              <h2>System Design</h2>
-              <ul>
-                <li class="fragment fade-up items" align="justify"><b>Agent Design </b> Policy (actions) and Reward
-                  (rewards) Networks connected either to individual or collective outcomes.</li>
-                <li class="fragment fade-up items" align="justify"><b>Reward Function.</b>Intrinsinc Reward Function
-                  (FCN) and Extrinsic Reward Function (environment feedback)</li>
-                <li class="fragment fade-up items" align="justify"><b>Environement.</b> <i>Clean Up Game</i></li>
-                <li class="fragment fade-up items" align="justify"><b>Evolutionary Dinamics.</b> Experiment mainly
-                  with the shared retrospective network reward, either with random or assortative matching.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      </section>
-
-      <!-- ------------- Slide 3 ------------------ -->
-      <section>
-        <h2>Experiments</h2>
-        <p>Objective: Validate that the system can evolve cooperation among agents and evaluate metrics sustainability.
-        </p>
-        <ul>
-          <li class="items" align="justify"><b>Experimental Setup</b></li>
-          <ul class="fragment fade-right">
-            <li class="items" align="justify">Initialization of policy and reward network parameters and evolutionary.
-            </li>
-            <li class="items" align="justify">Learning parameters (mutation rates, selection process, learning rates,
-              etc.)</li>
-          </ul>
-          <li class="items" align="justify"><b>Experimental conditions</b></li>
-          <ul class="fragment fade-right">
-            <li class="items" align="justify">Shared Retrospective Reward Network + <i>Random Matchmaking</i></li>
-            <li class="items" align="justify">Shared Retrospective Reward Network + <i>Assortative Matchmaking</i></li>
-          </ul>
-        </ul>
-
-      </section>
-
-      <!-- ------------- Slide 4 ------------------ -->
-
-      <section data-transition="convex">
-        <h2>Implemenation Results</h2>
-        <div class="left">
-          <ul class="fragment fade-down items">
-            <br>
-            <li align="justify"><b>Python based implementation.</b></li>
-            <li align="justify"><b>Sequential Social Dilemma Game.</b> Custom environment implementation for the Cleanup scenario using OpenAI gymnasium rendered using PyGame.</li>
-            <li align="justify"><b>Agents Architecture.</b> Pytorch based Neural Network architecture which encapsulates action decision making processes for the agents.</li>
-            <li align="justify"><b>Training process.</b> Pytorch based training pipeline that combines the optimization steps (backpropagation + evolutionary strategies) in the learning process.</li>
-          </ul>
-        </div>
-        <div class="right">
-          <img src="./assets/envG.gif" alt="Italian Trulli">
-        </div>
-      </section>
-
-  <section data-transition="zoom">
-        <h2>Experiments Results</h2>
-        <div class="left">
-          <h4>Without Intrinsic Motivations</h4>
-          <img src="./assets/woIR.gif" alt="Italian Trulli">
-        </div>
-        <div class="right">
-          <h4>With Intrinsic Motivations</h4>
-          <img src="./assets/wIR.gif" alt="Italian Trulli">
-        </div>
-      </section>
-
-
-      <section>
-        <h2>Conclusions</h2>
-        </p>
-        <ul>
-          <li class="items" align="justify">The use of <b>intrinsic motivations</b> encoded as information of the performance of the other agents in the system used a general knowlede among the agents is useful contribute in the resolution of <b>Intertemporal Social Dilemmas</b></li>
-          <li class="items" align="justify"> The use of <b>Reinforcement Learning</b> processes combined with <b>evolutionary strategies</b> is a suitable method to automate social norms generation.</li>
-        </ul>
-
-      </section>
-
-      <section>
-        <h2 style="color: #79b6c9;">EVOLVING INTRINSIC MOTIVATIONS FOR ALTRUISTIC BEHAVIOR</h1>
-          <h4>Final Implementation and Experiment Results</h4>
-            <!-- <h4 class="fragment">Self-Organising Agent Systems</h4> -->
-            <p style="font-size: 20px;">Self-Organising Agent Systems - Master in Artificial
-              Intelligence - Mario R. O.</p>
+      
+      <!-- ------------- Cover ------------------ -->
+      <section data-transition="zoom" data-auto-width data-auto-height>
+        <h3 class="fragment" style="color: #79b6c9;">FROM RULES TO REWARDS</h3>
+        <h2 class="fragment">AI PATH PLANNING FOR AUTONOMOUS DRIVING WITHIN THE CARLA-APOLLO FRAMEWORK</h2>
+            <p class="fragment" style="font-size: 30px;">MASTER IN ARTIFICIAL INTELLIGENCE | MARIO ROSAS OTERO</p>
+            <!--<p class="fragment" style="font-size: 30px;">MARIO ROSAS OTERO | MASTER IN ARTIFICIAL INTELLIGENCE</p>-->
+            <p class="fragment" style="font-size: 20px;">Supervised by: Ph.D. Axel Brando and Ph.D. Enrico Mezzetti | May 2025</p>
       </section>
 
 
@@ -309,6 +941,19 @@ and evaluated within realistic simulation (CARLA)</p>
           // Learn about plugins: https://revealjs.com/plugins/
           plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
         });
+        Reveal.addEventListener('fragmentshown', function(event) {
+          if (event.fragment.id === "apollo-image") {
+            const table = document.getElementById("apollo-table");
+            if (table) table.style.display = "none";
+          }
+        });
+
+        Reveal.addEventListener('fragmenthidden', function(event) {
+          if (event.fragment.id === "apollo-image") {
+            const table = document.getElementById("apollo-table");
+            if (table) table.style.display = ""; // Reset display so it's visible again
+          }
+        });;
       </script>
 </body>
 
