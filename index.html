@@ -47,7 +47,7 @@
         </section>
 
         <section>
-          <h2>Motivation</h2>
+          <h2>CONTEXT</h2>
           <p>Path planning as core function of autonomy involves <i>generating an optimal and safe trajectory</i> for a vehicle based on environmental and traffic constrains.</p>
           <div class="left">
             <ul class="fragment fade-down items">
@@ -72,7 +72,7 @@
         </section>
 
         <section>
-            <h2>Motivation</h2>
+            <h2>GOAL</h2>
             <p>Explore how learning-based planners (DRL & IL) can be integrated into a modular autonomous driving stack (Apollo) and evaluated within realistic simulation (CARLA)</p>
         </section>
       </section>
@@ -840,6 +840,7 @@
             </ul>
           </div>
         </section>
+
         <section>
           <h3>Experimental Routes: Route B (Town03)</h3>
           <div class="left">
@@ -885,21 +886,768 @@
 
       <!-- ------------- Slide 7 ------------------ -->
       <section>
-        <h2>Analysis & Discussion</h2>
+        <section>
+          <h2>Results</h2>
+        </section>
+
+        <section>
+          <h2>TRACK A: BASELINE - APOLLO EM PLANNER</h2>
+          <div class="block-content">
+            <div class="block-title">📌 EM Planner Performance by Route Segment in Route A</div>
+            <table class="fragment styled-table">
+              <thead>
+                <tr>
+                  <th>Segment</th>
+                  <th>DS ↑</th>
+                  <th>RC ↑</th>
+                  <th>IS ↑</th>
+                  <th>Veh ↓</th>
+                  <th>Stat ↓</th>
+                  <th>Red ↓</th>
+                  <th>Dev ↓</th>
+                  <th>TD ↓</th>
+                  <th>AS ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Initial Point</td>
+                  <td>96 <small>±2</small></td>
+                  <td>100</td>
+                  <td>0.96 <small>±0.05</small></td>
+                  <td>0.22</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.08</td>
+                  <td>4.35</td>
+                  <td>19.8</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 1</td>
+                  <td>98 <small>±1</small></td>
+                  <td>100</td>
+                  <td>0.98 <small>±0.01</small></td>
+                  <td>0.14</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.11</td>
+                  <td>3.58</td>
+                  <td>20.0</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 2</td>
+                  <td>98 <small>±0</small></td>
+                  <td>100</td>
+                  <td>0.98 <small>±0.01</small></td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.13</td>
+                  <td>2.95</td>
+                  <td>20.4</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 3</td>
+                  <td>100 <small>±0</small></td>
+                  <td>100</td>
+                  <td>1.00 <small>±0.00</small></td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>0.00</td>
+                  <td>1.35</td>
+                  <td>20.7</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="block-content">
+            <div class="block-title">📌 EM Planner Performance by Route Segment in Route B</div>
+            <table class="fragment styled-table">
+              <thead>
+                <tr>
+                  <th>Segment</th>
+                  <th>DS ↑</th>
+                  <th>RC ↑</th>
+                  <th>IS ↑</th>
+                  <th>Veh ↓</th>
+                  <th>Stat ↓</th>
+                  <th>Red ↓</th>
+                  <th>Dev ↓</th>
+                  <th>TD ↓</th>
+                  <th>AS ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Initial Point</td>
+                  <td>49 <small>±3</small></td>
+                  <td>56 <small>±4</small></td>
+                  <td>0.87 <small>±0.02</small></td>
+                  <td>0.32</td>
+                  <td>0.10</td>
+                  <td>0.31</td>
+                  <td>0.25</td>
+                  <td>5.35</td>
+                  <td>18.0</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 1</td>
+                  <td>68 <small>±2</small></td>
+                  <td>75 <small>±2</small></td>
+                  <td>0.91 <small>±0.01</small></td>
+                  <td>0.25</td>
+                  <td>0.00</td>
+                  <td>0.35</td>
+                  <td>0.10</td>
+                  <td>3.20</td>
+                  <td>19.8</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 2</td>
+                  <td>57 <small>±2</small></td>
+                  <td>64 <small>±3</small></td>
+                  <td>0.88 <small>±0.02</small></td>
+                  <td>0.24</td>
+                  <td>0.05</td>
+                  <td>0.43</td>
+                  <td>0.18</td>
+                  <td>4.75</td>
+                  <td>19.0</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 3</td>
+                  <td>89 <small>±3</small></td>
+                  <td>100 <small>±2</small></td>
+                  <td>0.89 <small>±0.01</small></td>
+                  <td>0.10</td>
+                  <td>0.00</td>
+                  <td>0.46</td>
+                  <td>0.09</td>
+                  <td>1.20</td>
+                  <td>19.8</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="block-content">
+            <div class="block-title">📌 System-Level Observations</div>
+            <ul class="fragment items">
+              <li><i>Planning Cycle</i>: Average time of 102ms for Route A and 36ms for Route B.</li>
+              <li><i>Planning Success Rate</i>: Valid trajetory messages in 99.7% (Route A) and 68.7% (Route B) of planning cycles.</li>
+              <li><i>Stable control latency</i>: ~11 ms.</li>
+              <li><i>PAD Ready State</i>: Maintained 99% uptime.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>TRACK B: DRL-MODEL TRAINING</h2>
+          <div class="classical-grid" style="margin-bottom: 1%;">
+            <div class="classical-column" style="margin-bottom: 0%;">
+              <div class="block-content">
+                <div class="block-title">📌 Variants evaluated</div>
+                <ul class="fragment items">
+                  <li><i>lsac_original</i>: Default InterpE2E config.</li>
+                  <li><i>lsac_params1</i>: Larger replay buffer, extended sequence length, higher batch and model batch sizes, and a slower target update period.</li>
+                  <li><i>lsac_params2</i>: urther adjusted variant of params1, exploring alternative param configurations.</li>
+                  <li><i>lsac_params3</i>: Same configuration as params1 but trained exclusively on trajectory segments extracted from the final evaluation routes.</li>
+                  <li><i>lsac_params4</i>: Same as params2, but also trained on route-specific navigation tasks.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="classical-column" style="margin-bottom: 0%;">
+              <div class="block-content">
+                <div class="block-title">📌 Post-Training Metrics</div>
+                <table class="fragment styled-table">
+                  <thead>
+                    <tr>
+                      <th>Variant</th>
+                      <th>Avg Return</th>
+                      <th>Avg Route Completion (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>lsac_original</td>
+                      <td>229.6</td>
+                      <td>25.0</td>
+                    </tr>
+                    <tr>
+                      <td>params1</td>
+                      <td>217.5</td>
+                      <td>37.0</td>
+                    </tr>
+                    <tr>
+                      <td>params2</td>
+                      <td>140.3</td>
+                      <td>19.0</td>
+                    </tr>
+                    <tr>
+                      <td>params3</td>
+                      <td>195.2</td>
+                      <td>26.0</td>
+                    </tr>
+                    <tr>
+                      <td><strong>params4</strong></td>
+                      <td><strong>267.1</strong></td>
+                      <td><strong>42.0</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>TRACK B: DRL-MODEL TRAINING</h3>
+          <div class="slide-subtitle">Training dynamics for perception reconstruction modules and actor-related losses across different hyperparameter sets.</div>
+            
+            <div class="classical-grid" style="margin-bottom: 1%;">
+              <div class="classical-column" style="margin-bottom: 0%;">
+                <div class="block-content">
+                  <div class="block-title">📌 Reconstruction error for camera modality.</div>
+                  <img src="assets/plots/reconstruction_error_camera Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+                <div class="block-content">
+                  <div class="block-title">📌 Reconstruction error for LiDAR modality.</div>
+                  <img src="assets/plots/reconstruction_error_lidar Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+              </div>
+
+              <div class="classical-column" style="margin-bottom: 0%;">
+                <div class="block-content">
+                  <div class="block-title">📌 Reconstruction error for bird’s-eye-view input.</div>
+                  <img src="assets/plots/reconstruction_error_birdeye Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+                <div class="block-content">
+                  <div class="block-title">📌 Actor loss trend over training steps.</div>
+                  <img src="assets/plots/actor_loss Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+              </div>
+
+              <div class="classical-column" style="margin-bottom: 0%;">
+                <div class="block-content">
+                  <br><br><br><br>
+                  <div class="block-title">📌 Alpha loss trend (entropy regularization) during training.</div>
+                  <img src="assets/plots/alpha_loss Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+              </div>
+            </div>
+        </section>
+
+        <section>
+          <h3>TRACK B: DRL-MODEL TRAINING</h3>
+          <div class="slide-subtitle">Policy-level performance during L-SAC training.</div>
+            
+            <div class="classical-grid" style="margin-bottom: 1%;">
+              <div class="classical-column" style="margin-bottom: 0%;">
+                <div class="block-content">
+                  <div class="block-title">📌 Average episode length (training policy).</div>
+                  <img src="assets/plots/AverageEpisodeLength Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+                <div class="block-content">
+                  <div class="block-title">📌 Average episode length (evaluation policy).</div>
+                  <img src="assets/plots/AverageEpisodeLengthEvalPolicy Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+              </div>
+
+              <div class="classical-column" style="margin-bottom: 0%;">
+                <div class="block-content">
+                  <div class="block-title">📌 Average episodic return (training policy).</div>
+                  <img src="assets/plots/AverageReturn Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+                <div class="block-content">
+                  <div class="block-title">📌 Average episodic return (evaluation policy).</div>
+                  <img src="assets/plots/AverageReturn Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+              </div>
+
+              <div class="classical-column" style="margin-bottom: 0%;">
+                <div class="block-content">
+                  <br><br><br><br>
+                  <div class="block-title">📌 Critic loss convergence across training runs.</div>
+                  <img src="assets/plots/critic_loss Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                </div>
+              </div>
+            </div>
+        </section>
+
+        <section>
+          <h2>TRACK B: DRL-BASED PLANNER</h2>
+          <div class="block-content">
+            <div class="block-title">📌 DRL Planner Performance by Route Segment in Route A</div>
+            <table class="fragment styled-table">
+              <thead>
+                <tr>
+                  <th>Segment</th>
+                  <th>DS ↑</th>
+                  <th>RC ↑</th>
+                  <th>IS ↑</th>
+                  <th>Veh ↓</th>
+                  <th>Stat ↓</th>
+                  <th>Red ↓</th>
+                  <th>Dev ↓</th>
+                  <th>TD ↓</th>
+                  <th>AS ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Initial Point</td>
+                  <td>16 <small>±6</small></td>
+                  <td>30 <small>±7</small></td>
+                  <td>0.53 <small>±0.16</small></td>
+                  <td>0.46</td>
+                  <td>0.25</td>
+                  <td>0.34</td>
+                  <td>0.33</td>
+                  <td>2.33</td>
+                  <td>24.5</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 1</td>
+                  <td>27 <small>±4</small></td>
+                  <td>46 <small>±5</small></td>
+                  <td>0.58 <small>±0.14</small></td>
+                  <td>0.33</td>
+                  <td>0.12</td>
+                  <td>0.50</td>
+                  <td>0.22</td>
+                  <td>1.76</td>
+                  <td>31.2</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 2</td>
+                  <td>26 <small>±8</small></td>
+                  <td>44 <small>±6</small></td>
+                  <td>0.60 <small>±0.25</small></td>
+                  <td>0.43</td>
+                  <td>0.16</td>
+                  <td>0.42</td>
+                  <td>0.36</td>
+                  <td>2.03</td>
+                  <td>18.0</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 3</td>
+                  <td>36 <small>±11</small></td>
+                  <td>60 <small>±4</small></td>
+                  <td>0.60 <small>±0.09</small></td>
+                  <td>0.29</td>
+                  <td>0.78</td>
+                  <td>0.00</td>
+                  <td>0.21</td>
+                  <td>1.31</td>
+                  <td>27.8</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="block-content">
+            <div class="block-title">📌 DRL Planner Performance by Route Segment in Route B</div>
+            <table class="fragment styled-table">
+              <thead>
+                <tr>
+                  <th>Segment</th>
+                  <th>DS ↑</th>
+                  <th>RC ↑</th>
+                  <th>IS ↑</th>
+                  <th>Veh ↓</th>
+                  <th>Stat ↓</th>
+                  <th>Red ↓</th>
+                  <th>Dev ↓</th>
+                  <th>TD ↓</th>
+                  <th>AS ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Initial Point</td>
+                  <td>21 <small>±6</small></td>
+                  <td>38 <small>±6</small></td>
+                  <td>0.55 <small>±0.05</small></td>
+                  <td>0.42</td>
+                  <td>0.12</td>
+                  <td>0.54</td>
+                  <td>0.35</td>
+                  <td>2.49</td>
+                  <td>23.8</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 1</td>
+                  <td>30 <small>±4</small></td>
+                  <td>53 <small>±4</small></td>
+                  <td>0.56 <small>±0.03</small></td>
+                  <td>0.32</td>
+                  <td>0.25</td>
+                  <td>0.56</td>
+                  <td>0.25</td>
+                  <td>0.56</td>
+                  <td>36.5</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 2</td>
+                  <td>13 <small>±7</small></td>
+                  <td>25 <small>±7</small></td>
+                  <td>0.50 <small>±0.06</small></td>
+                  <td>0.50</td>
+                  <td>0.32</td>
+                  <td>0.38</td>
+                  <td>0.43</td>
+                  <td>2.70</td>
+                  <td>22.2</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 3</td>
+                  <td>22 <small>±5</small></td>
+                  <td>40 <small>±5</small></td>
+                  <td>0.54 <small>±0.04</small></td>
+                  <td>0.37</td>
+                  <td>0.12</td>
+                  <td>0.61</td>
+                  <td>0.32</td>
+                  <td>1.95</td>
+                  <td>25.1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="block-content">
+            <div class="block-title">📌 System-Level Observations</div>
+            <ul class="fragment items">
+              <li><i>Planning Cycle</i>: Average time of 97ms for Route A and 94ms for Route B.</li>
+              <li><i>Planning Success Rate</i>: Valid trajetory messages in 63.6% of planning cycles.</li>
+              <li><i>Stable control latency</i>: ~25 ms.</li>
+              <li><i>PAD Ready State</i>: Maintained 72.4% uptime.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>TRACK C: IL-BASED PLANNER</h2>
+          <div class="block-content">
+            <div class="block-title">📌 IL Planner Performance by Route Segment in Route A</div>
+            <table class="fragment styled-table">
+              <thead>
+                <tr>
+                  <th>Segment</th>
+                  <th>DS ↑</th>
+                  <th>RC ↑</th>
+                  <th>IS ↑</th>
+                  <th>Veh ↓</th>
+                  <th>Stat ↓</th>
+                  <th>Red ↓</th>
+                  <th>Dev ↓</th>
+                  <th>TD ↓</th>
+                  <th>AS ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Initial Point</td>
+                  <td>54 <small>±4</small></td>
+                  <td>70 <small>±5</small></td>
+                  <td>0.76 <small>±0.04</small></td>
+                  <td>0.32</td>
+                  <td>0.15</td>
+                  <td>0.19</td>
+                  <td>0.22</td>
+                  <td>4.20</td>
+                  <td>21.2</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 1</td>
+                  <td>66 <small>±3</small></td>
+                  <td>82 <small>±3</small></td>
+                  <td>0.80 <small>±0.02</small></td>
+                  <td>0.17</td>
+                  <td>0.08</td>
+                  <td>0.11</td>
+                  <td>0.16</td>
+                  <td>3.63</td>
+                  <td>22.7</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 2</td>
+                  <td>61 <small>±3</small></td>
+                  <td>78 <small>±4</small></td>
+                  <td>0.77 <small>±0.03</small></td>
+                  <td>0.25</td>
+                  <td>0.10</td>
+                  <td>0.16</td>
+                  <td>0.13</td>
+                  <td>2.92</td>
+                  <td>21.4</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 3</td>
+                  <td>84 <small>±5</small></td>
+                  <td>100 <small>±2</small></td>
+                  <td>0.84 <small>±0.01</small></td>
+                  <td>0.13</td>
+                  <td>0.03</td>
+                  <td>0.04</td>
+                  <td>0.09</td>
+                  <td>1.23</td>
+                  <td>24.2</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="block-content">
+            <div class="block-title">📌 IL Planner Performance by Route Segment in Route B</div>
+            <table class="fragment styled-table">
+              <thead>
+                <tr>
+                  <th>Segment</th>
+                  <th>DS ↑</th>
+                  <th>RC ↑</th>
+                  <th>IS ↑</th>
+                  <th>Veh ↓</th>
+                  <th>Stat ↓</th>
+                  <th>Red ↓</th>
+                  <th>Dev ↓</th>
+                  <th>TD ↓</th>
+                  <th>AS ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Initial Point</td>
+                  <td>58 <small>±5</small></td>
+                  <td>68 <small>±6</small></td>
+                  <td>0.85 <small>±0.04</small></td>
+                  <td>0.12</td>
+                  <td>0.16</td>
+                  <td>0.14</td>
+                  <td>0.12</td>
+                  <td>2.34</td>
+                  <td>20.5</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 1</td>
+                  <td>64 <small>±4</small></td>
+                  <td>75 <small>±5</small></td>
+                  <td>0.85 <small>±0.03</small></td>
+                  <td>0.15</td>
+                  <td>0.00</td>
+                  <td>0.08</td>
+                  <td>0.13</td>
+                  <td>2.73</td>
+                  <td>21.8</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 2</td>
+                  <td>70 <small>±3</small></td>
+                  <td>80 <small>±3</small></td>
+                  <td>0.88 <small>±0.02</small></td>
+                  <td>0.14</td>
+                  <td>0.03</td>
+                  <td>0.09</td>
+                  <td>0.12</td>
+                  <td>2.66</td>
+                  <td>23.5</td>
+                </tr>
+                <tr>
+                  <td>Checkpoint 3</td>
+                  <td>91 <small>±4</small></td>
+                  <td>100 <small>±2</small></td>
+                  <td>0.91 <small>±0.06</small></td>
+                  <td>0.11</td>
+                  <td>0.02</td>
+                  <td>0.05</td>
+                  <td>0.08</td>
+                  <td>1.32</td>
+                  <td>24.4</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="block-content">
+            <div class="block-title">📌 System-Level Observations</div>
+            <ul class="fragment items">
+              <li><i>Planning Cycle</i>: Average time of 681<small>±450</small>ms.</li>
+              <li><i>Planning Success Rate</i>: Valid trajetory messages in 91.4% of planning cycles.</li>
+              <li><i>Stable control latency</i>: ~22 ms.</li>
+              <li><i>PAD Ready State</i>: Maintained 88.7% uptime.</li>
+            </ul>
+          </div>
+        </section>
+      </section>
+
+      <!-- ------------- Slide 7 ------------------ -->
+      <section>
+        <section>
+          <h2>Analysis & Discussion</h2>
+        </section>
+
+        <section>
+          <h3>Planners Performance Summary</h3>
+          <div class="block-content">
+            <div class="block-title">📌 Metrics averaged across all route segments for each planner.</div>
+            <table class="styled-table">
+              <thead>
+                <tr>
+                  <th>Planner</th>
+                  <th>DS ↑</th>
+                  <th>RC ↑</th>
+                  <th>IS ↑</th>
+                  <th>Veh ↓</th>
+                  <th>Stat ↓</th>
+                  <th>Red ↓</th>
+                  <th>Dev ↓</th>
+                  <th>TD ↓</th>
+                  <th>AS ↑</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>EM Planner</strong></td>
+                  <td><strong>81.88</strong></td>
+                  <td><strong>86.88</strong></td>
+                  <td><strong>0.93</strong></td>
+                  <td>0.17</td>
+                  <td><strong>0.02</strong></td>
+                  <td>0.19</td>
+                  <td>0.12</td>
+                  <td>3.34</td>
+                  <td>19.69</td>
+                </tr>
+                <tr>
+                  <td><strong>DRL Planner</strong></td>
+                  <td>23.88</td>
+                  <td>42.00</td>
+                  <td>0.56</td>
+                  <td>0.39</td>
+                  <td>0.27</td>
+                  <td>0.42</td>
+                  <td>0.31</td>
+                  <td><strong>1.89</strong></td>
+                  <td><strong>26.14</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>IL Planner</strong></td>
+                  <td>70.75</td>
+                  <td>80.75</td>
+                  <td>0.87</td>
+                  <td><strong>0.13</strong></td>
+                  <td>0.05</td>
+                  <td><strong>0.09</strong></td>
+                  <td><strong>0.11</strong></td>
+                  <td>2.26</td>
+                  <td>22.55</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Planners Performance Summary</h3>
+
+          
+          <div class="classical-grid" style="margin-bottom: 1%;">
+            <div class="classical-column" style="margin-bottom: 0%;">
+              <div class="block-content">
+                <div class="block-title">📌 Route Completion vs. Deviation.</div>
+                <img src="assets/analysis/RC_vs_Dev.jpg" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+              </div>
+              <div class="block-content">
+                <div class="block-title">📌 Safety vs Compliance Radar.</div>
+                <img src="assets/analysis/safety_vs_compliance.jpg" alt="Apollo Stack Diagram" style="max-width: 88%; height: auto; margin: 0%;" />
+              </div>
+            </div>
+
+            <div class="classical-column" style="margin-bottom: 0%;">
+              <div class="block-content">
+                <div class="block-title">📌 Driving Score vs. Average Speed.</div>
+                <img src="assets/analysis/DS_vs_AS.jpg" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+              </div>
+              <div class="block-content">
+                <div class="block-title">📌 Infraction Breakdown Bars.</div>
+                <img src="assets/analysis/breakdown.jpg" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+              </div>
+            </div>
+
+            <div class="classical-column" style="margin-bottom: 0%;">
+              <div class="block-content">
+                <div class="block-title">📌 Driving Quality Radar.</div>
+                <img src="assets/analysis/driving_quality.jpg" alt="Apollo Stack Diagram" style="max-width: 88%; height: auto; margin: 0%;" />
+              </div>
+              <div class="block-content">
+                <div class="block-title">📌 Composite Planner Comparison.</div>
+                <img src="assets/analysis/composite_metric.jpg" alt="Apollo Stack Diagram" style="max-width: 88%; height: auto; margin: 0%;" />
+              </div>
+            </div>
+          </div>
+        </section>
+
       </section>
 
       <!-- ------------- Slide 8 ------------------ -->
       <section>
         <section>
           <h2>Conclusions</h2>
+           
+          <ul class="fragment items">
+            <li><b>Project Goals Successfully Addressed</b></li>
+            <ul class="fragment items">
+              <li><i>Developed AI-based planners.</i></li>
+              <ul class="items">
+                <li>DRL planner (Latent SAC) and IL planner (TransFuser++).</li>
+              </ul>
+              <li><i>Integrate AI-based planners into Apollo framework.</i></li>
+              <ul class=" items">
+                <li>Real-time closed-loop operation via CyberRT bridge.</li>
+              </ul>
+            <li><i>Scenario testing in CARLA</i>:</li>
+              <ul class="items">
+                <li>Town01 and Town03 designed with intersections, occlusions, dynamic traffic.</li>
+              </ul>
+            <li><i>Comprehensive evaluation</i>:</li>
+              <ul class="items">
+                <li>Compared trajectory, safety, efficiency, and system-level metrics.</li>
+              </ul>
+            </ul>
+            <li><b>Key Takeaways</b></li>
+            <ul class="fragment items">
+                <li><i>IL planner</i>: Stable and rule-compliant, but not yet fully deployment-ready.</li>
+                <li><i>DRL planner</i>: Reactive and generalizable, but unstable and sample-inefficient.</li>
+                <li><i>EM planner</i>: Still best for robustness and predictable behavior.</li>
+            </ul>
+          </ul>
         </section>
 
         <section>
-          <h2>Future Work</h2>
+          <h2>Future Work and System Limitations</h2>
+           
+          <ul class="fragment items">
+            <li><b>Identified Limitations</b></li>
+            <ul class="fragment items">
+                <li>DRL convergence incomplete (possibly needs +10M steps).</li>
+                <li>DRL and IL planners underperform in complex interaction scenarios.</li>
+                <li>Tight Apollo integration challenges: validation, timing, rigidity.</li>
+            </ul>
+            <li><b>Future Research Directions</b></li>
+            <ul class="fragment items">
+                <li><i>Expand input modalities</i> using Apollo’s semantic and prediction layers.</li>
+                <li><i>Hybrid planners</i>, combine DRL/IL with EM for safe & adaptive planning.</li>
+                <li><i>Extended training</i> using curriculum learning and domain randomization.</li>
+                <li><i>Apply learning to other modules</i>, e.g., scenario deciders.</li>
+                <li><i>Bridge sim-to-real gap</i> with real-world datasets or hardware-in-the-loop testing.</li>
+            </ul>
+          </ul>
         </section>
 
         <section>
           <h2>Final Remarks</h2>
+          <ul class="fragment items">
+                <li>This work performed a modular integration of DRL and IL planners into Apollo—bridging academic learning-based methods with industry-grade AV stacks.</li>
+                <li>While end-to-end learning catches attention, hybrid approaches offer a realistic path forward, balancing adaptability with safety and explainability.</li>
+                <li>DRL and IL are not replacements for classical planning yet—but when carefully integrated, they can potencially enhance perception, reactivity, and contextual decision-making.</li>
+            </ul>
         </section>
       </section>
 
@@ -908,12 +1656,6 @@
         <h2>Acknowledgments</h2>
       </section>
 
-      <!-- ------------- Slide 10 ------------------ -->
-      <section>
-        <h2>Q&A</h2>
-      </section>
-
-      
       <!-- ------------- Cover ------------------ -->
       <section data-transition="zoom" data-auto-width data-auto-height>
         <h3 class="fragment" style="color: #79b6c9;">FROM RULES TO REWARDS</h3>
