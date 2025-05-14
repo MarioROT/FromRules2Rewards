@@ -24,307 +24,337 @@
     <div class="slides">
       <!-- ------------- Cover ------------------ -->
       <section data-transition="zoom" data-auto-width data-auto-height>
-        <h3 class="fragment" style="color: #79b6c9;">FROM RULES TO REWARDS</h3>
-        <h2 class="fragment">AI PATH PLANNING FOR AUTONOMOUS DRIVING WITHIN THE CARLA-APOLLO FRAMEWORK</h2>
-            <p class="fragment" style="font-size: 30px;">MASTER IN ARTIFICIAL INTELLIGENCE | MARIO ROSAS OTERO</p>
-            <!--<p class="fragment" style="font-size: 30px;">MARIO ROSAS OTERO | MASTER IN ARTIFICIAL INTELLIGENCE</p>-->
-            <p class="fragment" style="font-size: 20px;">Supervised by: Ph.D. Axel Brando and Ph.D. Enrico Mezzetti | May 2025</p>
+        <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px;">
+          <img src="assets/Logos/URV.png" alt="URV" style="max-width: 25%; height: auto;" />
+          <img src="assets/Logos/UB.png" alt="UB" style="max-width: 25%; height: auto;" />
+          <img src="assets/Logos/UPC.png" alt="UPC" style="max-width: 25%; height: auto;" />
+        </div>
+
+        <h3 class="fragment" style="color: #79b6c9; margin-bottom: 0%;" data-fragment-index="0">FROM RULES TO REWARDS</h3>
+        <h2 class="fragment" data-fragment-index="0">AI PATH PLANNING FOR AUTONOMOUS DRIVING WITHIN THE CARLA-APOLLO FRAMEWORK</h2>
+        <p style="font-size: 30px;">MASTER IN ARTIFICIAL INTELLIGENCE | MARIO ROSAS OTERO</p>
+        <p style="font-size: 20px;">Supervised by: Axel Brando (BSC-CNS) & Enrico Mezzetti (BSC-CNS) |  Tutor: Miquel Moretó (UPC) </p>
+
+        <img src="assets/Logos/BSC-blue-large.png" alt="URV" style="max-width: 25%; height: auto; margin-top: 0%;" />
+        
       </section>
 
       <!-- ------------- Slide 1 ------------------ -->
       <section>
         <section>
-            <h2>Motivation</h2>
-            <ul class="fragment fade-right">
-              <li class="items fragment" align="justify">Technology evolution has enabled safer, more efficient and reliable transportation.</li>
-              <li class="items fragment" align="justify">Driving is generally considered a manageable task for most people. Replicate this ability through autonomous systems present sigificantly more complex challenge.</li>
-              <li class="items fragment" align="justify">Among all the challenges in auonomous driving, path planning remain some critical ones</li>
-            </ul>
-              <img class="fragment" src="./assets/avoid_water.png" alt="Italian Trulli" style="max-width: 32%; height: auto;">
-              <img class="fragment" src="./assets/highway_merging.png" alt="Italian Trulli" style="max-width: 33%; height: auto;">
-              <img class="fragment" src="./assets/road_obstacles.png" alt="Italian Trulli" style="max-width: 33%; height: auto;">
-              <p class="fragment" style="font-size: 30px;">Requirements: <i>Real-time decision-making</i> | <i>Adaptability</i> | <i>Safety</i></p>
+          <h2>Motivation</h2>
+          <ul class="fade-right">
+            <li class="items" align="justify">Technology evolution has enabled safer, more efficient and reliable transportation.</li>
+            <li class="items" align="justify">Driving is generally considered a manageable task for most people. Replicate this ability through autonomous systems present sigificantly more complex challenge.</li>
+            <li class="items" align="justify">Among all the challenges in auonomous driving, path planning remain some critical ones.</li>
+          </ul>
+            <img class="fragment" src="./assets/CARLA_SC1_crop.gif" alt="Italian Trulli" style="max-width: 32%; height: auto;">
+            <img class="fragment" src="./assets/CARLA_SC2_crop.gif" alt="Italian Trulli" style="max-width: 33%; height: auto;">
+            <img class="fragment" src="./assets/CARLA_SC3_crop.gif" alt="Italian Trulli" style="max-width: 33%; height: auto;">
+            <p class="fragment" style="font-size: 30px;">Requirements: <i>Real-time decision-making</i> | <i>Adaptability</i> | <i>Safety</i></p>
+            <p style="position: absolute; left: 0; right: 0; text-align: left; font-size: 14px; color: gray;">
+              Images reproduced from <a href="https://example.com" target="_blank" style="color: gray; text-decoration: underline;">leaderboard.carla.org/</a>
+            </p>
         </section>
 
         <section>
           <h2>CONTEXT</h2>
-          <p>Path planning as core function of autonomy involves <i>generating an optimal and safe trajectory</i> for a vehicle based on environmental and traffic constrains.</p>
-          <div class="left">
-            <ul class="fragment fade-down items">
-              <li class="items" align="justify" style="color: #3B444B;"><b>Clasical Approach</b></li>
-              <ul>
-                <li align="justify">Predominantly <i>optimization-based</i>.</li>
-                <li align="justify">Demonstrated strong performance in <i>structured environments</i>.</li>
-                <li align="justify">Often <i>lack</i> of  <i>flexibility</i> and <i>situational awareness</i> needed to handle unpredictable or rapidly changing driving environments.</li>
-              </ul>
-            </ul>
-          </div>
-          <div class="right">
-            <ul class="fragment fade-down items">
-              <li class="items" align="justify"><b>Learned-based Approach</b></li>
-              <ul>
-                <li align="justify">Techniques such as DRL and IL ofer potential for <i>adaptive, context-aware decision making</i>.</li>
-                <li align="justify"><i>Learn</i> complex behaviors through interaction with <i>simulated environments</i>.</li>
-                <li align="justify">Suffers from poor or null <i>explainability</i> on the predicitons made by the models.</li>
-              </ul>
-            </ul>
+          <p>
+            Path planning as a core function of autonomy involves
+            <i>generating an optimal and safe trajectory</i>
+            for a vehicle based on environmental and traffic constraints.
+          </p>
+
+          <!-- Flex container for side-by-side cards -->
+          <div style="display: flex; justify-content: space-around; align-items: stretch; gap: 30px; margin-top: 20px;">
+            <!-- Card 1 -->
+            <div class="fragment card" style="flex: 1;">
+              <div class="content">
+                <div class="middle">
+                  <div>
+                    <p class="card_p" style="font-size: 80%;">Classical Approach</p>
+                  </div>
+                </div>
+                <div class="bottom">
+                  <ul class="items">
+                    <li align="justify" style="font-size: 20px;"><i>Optimization-based.</i></li>
+                    <li align="justify" style="font-size: 20px;"><i>Structured Environments.</i></li>
+                    <li align="justify" style="font-size: 20px;"><i>Lack of Flexibility and Situational Awareness.</i></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="fragment card" style="flex: 1;">
+              <div class="content">
+                <div class="middle">
+                  <div>
+                    <p class="card_p" style="font-size: 80%;">Learning-Based Approach</p>
+                  </div>
+                </div>
+                <div class="bottom" style="background-color: #ACE5EE;">
+                  <ul class="items">
+                    <li align="justify" style="font-size: 20px;">Data-driven, context-aware decision-making.</li>
+                    <li align="justify" style="font-size: 20px;">Handles uncertainty and complexity.</li>
+                    <li align="justify" style="font-size: 20px;">Adaptable to novel situations.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         <section>
             <h2>GOAL</h2>
-            <p>Explore how learning-based planners (DRL & IL) can be integrated into a modular autonomous driving stack (Apollo) and evaluated within realistic simulation (CARLA)</p>
+            <p>Explore how <b>learning-based planners</b> can be integrated into a <b>modular autonomous driving platform</b> and evaluated within <b>realistic simulation</b>.</p>
         </section>
       </section>
 
       <!-- ------------- Slide 2 ------------------ -->
-      <section>
+      <section style="font-size: 32px;">
         <h2>Research Aims & Objectives</h2>
-        <p style="font-size: 32px;">Evaluate the effectiveness of AI-based path planning using DRL and IL models integrated into the Apollo framework, and benchmark them against the native EM Planner using CARLA simulation.</p>
-        <ul class="items">
-          <li class="fragment" lign="justify" style="font-size: 20px;"><b>Develop AI-based Path Planners.</b> Implement DRL and IL models for trajectory genration.</li>
-          <li class="fragment" align="justify" style="font-size: 20px;"><b>Integrate into Apollo Planning Stack.</b> Embed the model to work as an alternative to the EM planner.</li>
-          <li class="fragment" align="justify" style="font-size: 20px;"><b>Simulate Driving Scenarios in CARLA.</b> Test cases such as lane following, intersection handling and traffic interactions.</li>
-          <li class="fragment" align="justify" style="font-size: 20px;"><b>Evaluate performance.</b> Compare models using metrics such as: route completion, collition rate, rule compliance and planning latency.</li>
-        </ul>
+        Evaluate the <span class="fragment highlight-blue">effectiveness of AI-based path planning using DRL and IL models </span><span class="fragment highlight-red">integrated into the Apollo framewok</span>, and <span class="fragment highlight-blue">benchmark them against its integrated EM planner</span> <span class="fragment highlight-red">using CARLA simulation</span>.       
       </section>
 
       <!-- ------------- Slide 3 ------------------ -->
+
       <section>
         <h2>Proposed Solution</h2>
-        <ul class="items">
-          <li class="fragment" lign="justify" style="font-size: 25px;">Understand Apollo’s architecture, focusing on the planning module's structure and fucntionalities.</li>
-          <li class="fragment" align="justify" style="font-size: 25px;">Take current DRL/IL models designed for End-to-End autonomous driving and adapt them to be integrated into the Apollo planning stack.</li>
-          <li class="fragment" lign="justify" style="font-size: 25px;">Define specific routes within the avalialble CARLA environments.</li>
-          <li class="fragment" lign="justify" style="font-size: 25px;">Train/Refine the models in CARLA to handle dynamic on-road conditions.</li>
-          <li class="fragment" align="justify" style="font-size: 25px;">Evaluate the AI-based planners using specialized metrics and compare their performance to Apollo’s built-in EM planner.</li>
-        </ul>
-        <table class="fragment styled-table">
-          <thead>
-              <tr>
-                  <th>Tool / Framework</th>
-                  <th>Role in the System</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr>
-                  <td><strong>Apollo (v8.0)</strong></td>
-                  <td>Autonomous driving stack: baseline planning, control, and perception modules.</td>
-              </tr>
-              <tr>
-                  <td><strong>CARLA (0.9.14)</strong></td>
-                  <td>High-fidelity simulator for training and testing in realistic urban scenarios.</td>
-              </tr>
-              <tr>
-                  <td><strong>Latent SAC</strong></td>
-                  <td>DRL algorithm using a VAE + SAC in a learned latent space.</td>
-              </tr>
-              <tr>
-                  <td><strong>TransFuser++</strong></td>
-                  <td>Imitation Learning model with transformer-based sensor fusion.</td>
-              </tr>
-              <tr>
-                  <td><strong>TensorFlow & PyTorch</strong></td>
-                  <td>Deep learning libraries used for training and inference.</td>
-              </tr>
-              <tr>
-                  <td><strong>CyberRT + Python</strong></td>
-                  <td>Middleware and integration layer between Apollo and external planners.</td>
-              </tr>
-          </tbody>
-        </table>
-      </section>
+          <div style="display: flex; justify-content: space-around; align-items: stretch; gap: 30px; margin-top: 20px;">
+            <!-- Card 1 -->
+            <div class="fragment card" style="flex: 1; width: 30%; height: 275px;">
+              <div class="content">
+                <div class="middle">
+                  <div>
+                    <p class="card_p" style="font-size: 80%;">UNDERSTAND</p>
+                  </div>
+                </div>
+                <div class="bottom">
+                  <ul class="items">
+                    <i>Apollo's architecture, focusing on the planning module's structure and functionalities.</i>
+                  </ul>
+                </div>
+              </div>
+            </div>
 
+            <!-- Card 2 -->
+            <div class="fragment card" style="flex: 1; width: 30%; height: 275px;">
+              <div class="content">
+                <div class="middle">
+                  <div>
+                    <p class="card_p" style="font-size: 80%;">ADAPT</p>
+                  </div>
+                </div>
+                <div class="bottom" style="background-color: #ACE5EE;">
+                  <ul class="items">
+                  Current DRL/IL End-to-End models to be integrated into Apollo's planning stack.
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="fragment card" style="flex: 1; width: 30%; height: 275px;">
+              <div class="content">
+                <div class="middle">
+                  <div>
+                    <p class="card_p" style="font-size: 80%;">DESIGN</p>
+                  </div>
+                </div>
+                <div class="bottom">
+                  <ul class="items">
+                    <i>Specific routes within CARLA environemnts to run valuable experiments.</i>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: space-around; align-items: stretch; gap: 30px; margin-top: 20px;">
+
+            <!-- Card 2 -->
+            <div class="fragment card" style="flex: 1; width: 30%; height: 275px;">
+              <div class="content">
+                <div class="middle">
+                  <div>
+                    <p class="card_p" style="font-size: 80%;">TRAIN / REFINE</p>
+                  </div>
+                </div>
+                <div class="bottom" style="background-color: #ACE5EE;">
+                  <ul class="items">
+                    The selected models to perform on the designed scenarios.
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 1 -->
+            <div class="fragment card" style="flex: 1; width: 30%; height: 275px;">
+              <div class="content">
+                <div class="middle">
+                  <div>
+                    <p class="card_p" style="font-size: 80%;">EVALUATE</p>
+                  </div>
+                </div>
+                <div class="bottom">
+                  <ul class="items">
+                  <i>The AI-based Planners using specialized metrics:</i>
+                    <li align="justify" style="font-size: 20px;"><i>Driving behavior.</i></li>
+                    <li align="justify" style="font-size: 20px;"><i>Apollo System Level.</i></li>
+                    <li align="justify" style="font-size: 20px;"><i>Visual Assesments.</i></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+            
+      </section>
+      
       <!-- ------------- Slide 4 ------------------ -->
       <section>
         <section>
           <h2>Background</h2>
         </section>
+        
+      <section>
+        <h4>What is Planning in Robotics and Autonomous Driving?</h4>
+        <p style="font-size: 32px;">
+          <i>Planning</i> is the process of <i>selecting a sequence of actions</i> that transform a system
+          <i>from an initial state to a desired goal state</i>, respecting constraints and optimizing objectives.
+        </p>
 
-        <!-- <section> -->
-        <!--   <h4>What is Planning in Robotics and Autonomous Driving?</h4> -->
-        <!--   <p style="font-size: 32px;"><i>Planning</i> is the process of <i>selecting a sequence of actions</i> that transform a system <i>from an initial state to a desired goal state</i>, respecting constraints and optimizing objectives.</p> -->
-        <!--   <ul class="fade-down items"> -->
-        <!--     <li class="items" align="justify" style="color: #3B444B;"><b>In Autonomous Driving:</b></li> -->
-        <!--     <ul class="fragment"> -->
-        <!--       <!- <li align="justify"><i>Planning</i> = determining a collition-free path for an agent within a complex dynamic environement.</li> -> -->
-        <!--       <li align="justify"><i>Planning</i> = determine how to mofe safely and efficiently within a complex dynamic environement.</li> -->
-        <!--       <li align="justify">In AD systems it is usually split into:</li> -->
-        <!--       <ul>  -->
-        <!--         <li align="justify"><i>Route Planning</i>. Long-term geometric path on the road network.</li> -->
-        <!--         <li align="justify"><i>Behavior Planning</i>. General motion commands (e.g. yield, overtake, stop, turn right/left).</li> -->
-        <!--         <li align="justify"><i>Trajectory Planning</i>. Precise motion plan that incorporates vehicle kinematics and dynamics to generate feasible commands to follow in the near term.</li> -->
-        <!--         <ul>  -->
-        <!--           <li align="justify"> (<i>Trajectory Planning</i> + <i>Tajectory Timing</i>).</li> -->
-        <!--         </ul>  -->
-        <!--       </ul>  -->
-        <!--     </ul> -->
-        <!--     <li class="items" align="justify"><b>Challenges</b></li> -->
-        <!--     <ul class="fragment"> -->
-        <!--       <li align="justify">Must account for traffic rules, dynamic obstacles, vehicle limits, and safety margins.</li> -->
-        <!--       <li align="justify">Needs to operate in real time, ofter under uncertainty and partial observability.</li> -->
-        <!--     </ul> -->
-        <!--   </ul> -->
-        <!-- </section> -->
-
-        <!-- <section> -->
-        <!--   <h4>What is Planning in Robotics and Autonomous Driving?</h4> -->
-        <!--   <p style="font-size: 32px;"><i>Planning</i> is the process of <i>selecting a sequence of actions</i> that transform a system <i>from an initial state to a desired goal state</i>, respecting constraints and optimizing objectives.</p> -->
-        <!--   <ul class="fade-down items"> -->
-        <!--     <li class="items" align="justify" style="color: #3B444B;"><b>In Autonomous Driving:</b></li> -->
-        <!--     <ul class="fragment"> -->
-        <!--       <!- <li align="justify"><i>Planning</i> = determining a collition-free path for an agent within a complex dynamic environement.</li> -> -->
-        <!--       <li align="justify"><i>Planning</i> = determine how to mofe safely and efficiently within a complex dynamic environement.</li> -->
-        <!--       <li align="justify">In AD systems it is usually split into:</li> -->
-        <!--       <div style="display: flex; align-items: center; justify-content: center;">   -->
-        <!--         <img src="./assets/Planning tasks.png" alt="Italian Trulli" style="width: 40%;"> -->
-        <!--       </div> -->
-        <!--         <ul>  -->
-        <!--           <li align="justify"> (<i>Trajectory Planning</i> + <i>Tajectory Timing</i>).</li> -->
-        <!--         </ul>  -->
-        <!--     </ul> -->
-        <!--     <li class="items" align="justify"><b>Challenges</b></li> -->
-        <!--     <ul class="fragment"> -->
-        <!--       <li align="justify">Must account for traffic rules, dynamic obstacles, vehicle limits, and safety margins.</li> -->
-        <!--       <li align="justify">Needs to operate in real time, ofter under uncertainty and partial observability.</li> -->
-        <!--     </ul> -->
-        <!--   </ul> -->
-        <!-- </section> -->
-
-        <section>
-          <h4>What is Planning in Robotics and Autonomous Driving?</h4>
-          <p style="font-size: 32px;"><i>Planning</i> is the process of <i>selecting a sequence of actions</i> that transform a system <i>from an initial state to a desired goal state</i>, respecting constraints and optimizing objectives.</p>
-          <ul class="fade-down items">
-          <div class="left">
-          <ul class="fade-down items">
-            <li class="items" align="justify" style="color: #3B444B;"><b>In Autonomous Driving:</b></li>
-            <ul class="fragment">
-              <!-- <li align="justify"><i>planning</i> = determining a collition-free path for an agent within a complex dynamic environement.</li> -->
-              <li align="justify"><i>Planning</i> = determine how to move safely and efficiently within a complex dynamic environement.</li>
-              <li align="justify">In AD systems it is usually splitted into ------> </li>
-                <ul> 
-                  <li align="justify"> (<i>trajectory planning</i> + <i>tajectory timing</i>).</li>
-                </ul> 
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 40px;">
+          
+          <!-- LEFT COLUMN -->
+          <div class="left" style="flex: 1;">
+            <ul class="fade-down items">
+              <li class="items" align="justify" style="color: #3B444B;"><b>In Autonomous Driving:</b></li>
+              <ul class="fragment" data-fragment-index="1">
+                <li align="justify"><i>Planning</i> = determine how to move safely and efficiently within a complex dynamic environment.</li>
+                <li align="justify">In AD systems, planning is usually splittes into 3 main subtasks.</li>
+              </ul>
+              <li class="items" align="justify"><b>Challenges</b></li>
+              <ul class="fragment">
+                <li align="justify">Must account for traffic rules, dynamic obstacles, vehicle limits, and safety margins.</li>
+                <li align="justify">Needs to operate in real time, often under uncertainty and partial observability.</li>
+              </ul>
             </ul>
-            <li class="items" align="justify"><b>Challenges</b></li>
-            <ul class="fragment">
-              <li align="justify">Must account for traffic rules, dynamic obstacles, vehicle limits, and safety margins.</li>
-              <li align="justify">Needs to operate in real time, ofter under uncertainty and partial observability.</li>
-            </ul>
-          </ul>
-          </div>
-          <div class="right" style="display: flex;  flex-direction: column; align-items: center; justify-content: center;">
-            <img src="./assets/Planning tasks.png" alt="Italian Trulli" style="width: 90%; margin-bottom: 15px;">
-            <p style="font-size: 15px; margin-top: 0px; ">Path planning bridges prediction and control in modular AV pipelines.</p>
-          </div>
-        </section>
-
-       <section>
-          <h3> Classical Planning in Autonomous Driving</h3>
-          <div class="slide-subtitle">
-            Deterministic & interpretable approaches, ideal for structured environments.
           </div>
 
-          <div class="classical-grid">
-            <!-- Left Column -->
-            <div class="classical-column">
-              <div class="fragment block-content">
-                <div class="block-title">📌 Graph-Based Search</div>
-                Grid or graph discretization + <i>A*</i>, <i>Dijkstra</i>.<br>
-                Fast, complete, but often ignores dynamics.<br>
-                <em>Advanced: Hybrid A*, State Lattice, D*</em>
-              </div>
+          <!-- RIGHT COLUMN -->
+          <div class="right" style="position: relative; width: 45%; display: flex; justify-content: center; align-items: center;">
+            <!-- Base image -->
+            <img src="./assets/Planning tasks.png" alt="Planning tasks" style="width: 100%; display: block;">
 
-              <div class="fragment block-content">
-                <div class="block-title">📌 Sampling-Based</div>
-                Random exploration: <i>RRT</i>, <i>PRM</i>.<br>
-                Good for unstructured/tight spaces.<br>
-                Requires smoothing or heuristics.
+            <!-- Overlay image as fragment -->
+            <img class="fragment" data-fragment-index="2" src="./assets/Planning tasks mod.png" alt="Overlay image"
+                 style="position: absolute; top: 0; left: 0; width: 100%; height: auto;">
+          </div>
+        </div>
+      </section>
+       
+      <section>
+        <h3>Classical Planning in Autonomous Driving</h3>
+          <div style="display: flex; justify-content: space-around; align-items: stretch; gap: 30px; margin-top: 20px;">
+            <!-- Card 1 -->
+            <div class="fragment card" style="flex: 1; width: 30%; height: 162px; background: linear-gradient(#A3C1AD, #A3C1AD)">
+              <div class="content">
+                <div class="middle" style="background: linear-gradient(#A3C1AD, #A3C1AD);">
+                  <div>
+                    <p class="card_p" style="font-size: 80%;">GRAPH-BASED SEARCH</p>
+                  </div>
+                </div>
+                <div class="bottom" style="background-color: #fdf6e3;">
+                  <ul class="items">
+                    <i style="font-size: 18px;">Graph discretization + Search Algorithm</i>
+                    <li align="justify" style="font-size: 15px;">Fast, complete but often ignore dynamics.</li>
+                    <li align="justify" style="font-size: 15px;">Advanced: Hybrid A*, State Lattice, D*.</li>
+                  </ul>
+                </div>
               </div>
             </div>
 
-            <!-- Right Column -->
-            <div class=" fragment classical-column">
-              <div class="block-content">
-                <div class="block-title">📌 Optimization / MPC</div>
-                Solve constrained problems, minimize cost (<i>time</i>, <i>jerks</i>).<br>
-                Widely used: <i>Model Predictive Control (MPC)</i>.
-              </div>
-
-              <div class="fragment block-content">
-                <div class="block-title">📌 Analytical / Curve-Based</div>
-                Fast methods: splines, polynomials, clothoids.<br>
-                <i>APFs</i> model agents as particles — fast but may get stuck.
+            <!-- Card 2 -->
+            <div class="fragment card" style="flex: 1; width: 30%; height: 162px; background: linear-gradient(#A3C1AD, #A3C1AD)">
+              <div class="content">
+                <div class="middle" style="background: linear-gradient(#A3C1AD, #A3C1AD);">
+                  <div>
+                    <p class="card_p" style="font-size: 80%;">OPTIMIZATION</p>
+                  </div>
+                </div>
+                <div class="bottom" style="background-color: #fdf6e3;">
+                  <ul class="items">
+                    <i style="font-size: 18px;">Solve constrained problems, minimize cost</i>
+                    <li align="justify" style="font-size: 15px;">Widely used: Model Predictive Control.</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="fragment footer-note">
-            📌 <strong>Modern Enhancements</strong>: CHOMP, TrajOpt, BIT* improve optimality.<br>
-            Blend control, sampling, optimization — but still rule-driven.<br><br>
-            <i>→ Poor generalization under ambiguity | Hard to tune manually for all edge cases.</i>
-            <!-- <i>→ Need for learning-based approaches to handle unpredictability.</i> -->
+          <div style="display: flex; justify-content: space-around; align-items: stretch; gap: 30px; margin-top: 20px;">
+            <!-- Card 1 -->
+            <div class="fragment card" style="flex: 1; width: 30%; height: 162px; background: linear-gradient(#A3C1AD, #A3C1AD)">
+              <div class="content">
+                <div class="middle" style="background: linear-gradient(#A3C1AD, #A3C1AD);">
+                  <div>
+                    <p class="card_p" style="font-size: 80%;">SAMPLING-BASED</p>
+                  </div>
+                </div>
+                <div class="bottom" style="background-color: #fdf6e3;">
+                  <ul class="items">
+                    <i style="font-size: 18px;">Random Exploration</i>
+                    <li align="justify" style="font-size: 15px;">Good for structured/tight spaces.</li>
+                    <li align="justify" style="font-size: 15px;">Requires smoothing or heuristics.</li>
+                    <li align="justify" style="font-size: 15px;">Common methods: RRT, PRM.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="fragment card" style="flex: 1; width: 30%; height: 162px; background: linear-gradient(#A3C1AD, #A3C1AD)">
+              <div class="content">
+                <div class="middle" style="background: linear-gradient(#A3C1AD, #A3C1AD);">
+                  <div>
+                    <p class="card_p" style="font-size: 70%;">ANALYTICAL/CURVE-BASED</p>
+                  </div>
+                </div>
+                <div class="bottom" style="background-color: #fdf6e3;">
+                  <ul class="items">
+                    <i style="font-size: 18px;">Fast methods: splines, polynomials, clothoids</i>
+                    <li align="justify" style="font-size: 15px;">Fast but may get stuck.</li>
+                    <li align="justify" style="font-size: 15px;">Modeling agent as particles: APFs.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
-        </section>
 
-        <!-- <section> -->
-        <!--   <h2>Learning-Based Planners</h2> -->
-        <!--   <div class="slide-subtitle"> -->
-        <!--     DRL and IL offer data-driven, adaptive policies for complex behaviors. -->
-        <!--   </div> -->
-
-        <!--   <div class="fragment classical-grid"> -->
-        <!--     <div class="block-content"> -->
-        <!--     <div class="block-title">📌 Imitation Learning (IL)</div> -->
-        <!--     <ul class="items"> -->
-        <!--       <li>Learns from expert demonstrations.</li> -->
-        <!--       <li>Faster learning, stable, and expert-aligned, but:.</li> -->
-        <!--       <ul class="items"> -->
-        <!--         <li>Limited by <i>dataset coverage</i>.</li> -->
-        <!--         <li>Can inherit expert mistakes or biases.</li> -->
-        <!--       </ul> -->
-        <!--     </ul> -->
-        <!--   </div> -->
-
-        <!--     <div class="classical-column"> -->
-        <!--       <div class="block-content"> -->
-        <!--         <div class="block-title">📌 Deep Reinforcement Learning (DRL)</div> -->
-        <!--         <ul class="items"> -->
-        <!--           <li>Learns via interaction and reward maximization.</li> -->
-        <!--           <li>Can discover optimal strategies, but:</li> -->
-        <!--           <ul class="items"> -->
-        <!--             <li>Sample inefficient and unstable.</li> -->
-        <!--             <li>Risky exploration—feasible only in simulation</li> -->
-        <!--           </ul> -->
-        <!--         </ul> -->
-        <!--       </div> -->
-        <!--     </div> -->
-        <!--   </div> -->
-
-        <!--   <table class="fragment styled-table" style="margin-top: 30px;"> -->
-        <!--     <thead> -->
-        <!--       <tr> -->
-        <!--         <th>Key Benefits</th> -->
-        <!--         <th>Drawbacks</th> -->
-        <!--       </tr> -->
-        <!--     </thead> -->
-        <!--     <tbody> -->
-        <!--       <tr> -->
-        <!--         <td>Learns <i>adaptable, context-aware</i> behavior</td> -->
-        <!--         <td>Requires <i>extensive training</i> & simulation infrastructure</td> -->
-        <!--       </tr> -->
-        <!--       <tr> -->
-        <!--         <td>Handles <i>uncertainty</i> and multi-agent environments</td> -->
-        <!--         <td>Often lacks <i>formal safety guarantees</i></td> -->
-        <!--       </tr> -->
-        <!--       <tr> -->
-        <!--         <td><i>Real-time inference</i> once trained</td> -->
-        <!--         <td>Can <i>overfit</i> or act unpredictably in novel settings</td> -->
-        <!--       </tr> -->
-        <!--     </tbody> -->
-        <!--   </table> -->
-        <!-- </section> -->
-
+          <div style="display: flex; justify-content: space-around; align-items: stretch; gap: 30px; margin: 20px auto 0 auto; width: 50%;">
+            <!-- Card 1 -->
+            <div class="fragment card" style="flex: 1; width: 30%; height: 162px; background: linear-gradient(#A3C1AD, #A3C1AD)">
+              <div class="content">
+                <div class="middle" style="background: linear-gradient(#A3C1AD, #A3C1AD);">
+                  <div>
+                    <p class="card_p" style="font-size: 80%;">MODERN APPROACHES</p>
+                  </div>
+                </div>
+                <div class="bottom" style="background-color: #fdf6e3;">
+                  <ul class="items">
+                    <i style="font-size: 18px;">Improve Optimality</i>
+                    <li align="justify" style="font-size: 15px;">Popular methods: CHOMP,TrajOpt,BIT*.</li>
+                    <li align="justify" style="font-size: 15px;">Blend control, sampling, optimization.</li>
+                    <li align="justify" style="font-size: 15px;">Still rule-driven.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <i class="fragment fade-in" style="font-size: 50%;">→ Poor generalization under ambiguity | Hard to tune manually for all edge cases.</i>
+      </section>
+      
         <section>
           <h2>Learning-Based Planners</h2>
           <div class="slide-subtitle" style="margin-bottom: 1%;">
@@ -336,7 +366,7 @@
             <div class="classical-column" style="margin-bottom: 0%;">
               <div class="block-content" style="margin-bottom: 1%;">
                 <div class="block-title">📌 Deep Reinforcement Learning (DRL)</div>
-                <img src="assets/DRL_2.png" alt="Apollo Stack Diagram" style="max-width: 63%; height: auto; margin: 0%;" />
+                <img src="assets/DRL_2.png" alt="Apollo Stack Diagram" style="max-width: 72%; height: auto; margin: 0%;" />
               </div>
             </div>
 
@@ -344,7 +374,7 @@
             <div class="classical-column" style="margin-bottom: o%;">
               <div class="block-content" style="margin-bottom: 1%;">
                 <div class="block-title">📌 Imitation Learning (IL)</div>
-                <img src="assets/IL_3.png" alt="Apollo Stack Diagram" style="max-width: 58%; height: auto; margin: 0%;" />
+                <img src="assets/IL_3.png" alt="Apollo Stack Diagram" style="max-width: 67%; height: auto; margin: 0%;" />
               </div>
             </div>
           </div>
@@ -360,7 +390,7 @@
             <tbody>
               <tr>
                 <td>Learns <i>adaptable, context-aware</i> behavior</td>
-                <td>Requires <i>extensive training</i> & simulation infrastructure</td>
+                <td>Needs <i>extensive training</i> & simulation infrastructure</td>
               </tr>
               <tr>
                 <td>Handles <i>uncertainty</i> and multi-agent environments</td>
@@ -374,67 +404,17 @@
           </table>
         </section>
 
+        <section>
+          <h3>APOLLO: A Modular Autonomous Driving Stack</h3>
+          <div class="slide-subtitle">Open-source full-stack AV system (Baidu)</div>
+          <ul class="fade-down items">
+            <li align="justify">Built on <i>Cyber RT</i> – real-time pub-sub middleware for module communication.</li>
+            <li align="justify">Modular Design: Each component operates <i>independently</i>.</li>
+          </ul>
 
-          <section>
-            <h3>APOLLO: A Modular Autonomous Driving Stack</h3>
-            <div class="slide-subtitle">Open-source full-stack AV system (Baidu)</div>
-            <ul class="fade-down items">
-              <li align="justify">Built on <i>Cyber RT</i> – real-time pub-sub middleware for module communication.</li>
-              <li align="justify">Modular Design</li>
-                <ul> 
-                  <li align="justify">Each component operates <i>independently</i>.</li>
-                  <li align="justify">Enables testing, debugging, and replacing modules in <i>isolation</i>.</li>
-                </ul> 
-            </ul>
-
-
-            <!-- Core Pipeline Table -->
-            <!-- <div class="fragment fade-in block-content fade-out" data-fragment-index="0"> -->
-          <div class="stack-container">
-            <div id="apollo-table" class="fragment fade-in block-content fade-out" data-fragment-index="0">
-              <div class="block-title">Core Pipeline</div>
-              <table class="styled-table" style="margin-top: 10px;">
-                <thead>
-                  <tr>
-                    <th>Module</th>
-                    <th>Role</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Perception</strong></td>
-                    <td>Detect lanes, traffic lights, vehicles, pedestrians</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Localization</strong></td>
-                    <td>Fuse GPS, IMU, LiDAR for cm-level position</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Prediction</strong></td>
-                    <td>Forecast future motion of nearby agents</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Routing</strong></td>
-                    <td>Compute high-level driving route from HD Map</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Planning</strong></td>
-                    <td>Generate short-term, safe, and smooth trajectories</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Control</strong></td>
-                    <td>Convert planned path into vehicle actuation commands</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div id="apollo-image" style="text-align: center;">
+              <img src="assets/Apollo_Modules_Interaction_bg.png" alt="Apollo Stack Diagram" style="max-width: 80%; height: auto; margin: 0%;" />
             </div>
-
-            <!-- Image appears after -->
-            <!-- <div class="fragment fade-in" data-fragment-index="0" style="text-align: center; margin-top: 20px;"> -->
-            <div id="apollo-image" class="fragment fade-in" data-fragment-index="1" style="text-align: center;">
-              <img src="assets/Apollo_Modules_Interaction.png" alt="Apollo Stack Diagram" style="max-width: 60%; height: auto; margin: 0%;" />
-            </div>
-          </div>
 
           <!-- Summary -->
           <div class="fragment footer-note" style="margin-top: 0%;">
@@ -443,39 +423,36 @@
           </div>
         </section>
 
-
         <section>
           <h2 class="slide-title">Planning in Apollo</h2>
           <!-- <div class="block-title">Architecture: Hierarchical</div> -->
               <ul class="items">
-                <li>Planning module = decision-making core (~10 Hz)</li>
-                <li>Takes input from: <i>Perception, Prediction, Localization, Routing, HD Maps, Chassis</i></li>
+                <li>Planning module = decision-making core (~10 Hz).</li>
+                <li>Takes input from: <i>Perception, Prediction, Localization, Routing, HD Maps, Chassis.</i></li>
               </ul>
-          <div class="fragment"> 
             <div class="left">
               <div class="block-content">
                 <ul class="items">
                   <li><b>Planning architecture</b>:</li>
-                  <ul class="fragment items">
-                    <li><i>Scenario Manager</i>: selects driving context (<em>lane follow, stop sign</em>)</li>
-                    <li><i>Deciders</i>: enforce <i>traffic rules</i> and constraints</li>
-                    <li><i>Optimizers</i> (e.g., <i>EM Planner</i>): generate smooth trajectories</li>
+                  <ul class="fragment items" data-fragment-index="1">
+                    <li><i>Scenario Manager</i>: selects driving context (<em>lane follow, stop sign</em>).</li>
+                    <li><i>Deciders</i>: enforce <i>traffic rules</i> and constraints.</li>
+                    <li><i>Optimizers</i> (e.g., <i>EM Planner</i>): smooth trajectory.</li>
                   </ul>
                   <li><b>EM Planner (Expectation-Maximization)</b></li>
-                  <ul class="fragment items">
+                  <ul class="fragment items" data-fragment-index="2">
                     <li><i>SL (Space-Lane)</i> → lateral trajectory planning.</li>
-                    <li><i>ST (Space-Time)</i> → speed profile planning</li>
+                    <li><i>ST (Space-Time)</i> → speed profile planning.</li>
                     <li>Iterative EM cycle <i>refines trajectory until convergence</i>.</li>
-                    <li>Supports multi-lane evaluation and fallback strategies.</li>
+                    <li><i>Multi-lane evaluation</i> and <i>fallback strategies</i>.</li>
                   </ul>
                 </ul> 
               </div>
             </div>
 
-            <div class="right">
-              <img src="assets/EM_iteration.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 8% 5%;" />
+            <div class="fragment right" data-fragment-index="2">
+              <img src="assets/EM_iteration_bg.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 8% 5%;" />
             </div> 
-          </div> 
         </section>
 
        <section>
@@ -484,39 +461,23 @@
             CARLA is an open-source AV simulator developed by CVC-UAB, designed for research and development in autonomous driving.
           </div>
 
-          <div class="classical-grid">
-            <!-- Left Column -->
-            <div class="classical-column">
-              <div class="block-content">
-                <div class="block-title">📌 Key Characteristics</div>
-                <ul class="fragment items">
-                  <li>Built on Unreal Engine.</li>
-                  <li>High-fidelity urban environments.</li>
-                  <li>Accurate vehicle dynamics.</li>
-                  <li>Realistic rendering and sensor simulation.</li>
-                  </ul>
-              </div>
-            </div>
-
             <!-- Right Column -->
-            <div class="classical-column">
+            <div class="left">
+              <br>
               <div class="block-content">
                 <div class="block-title">📌 Key Features for this Project</div>
-                <ul class="fragment items">
-                  <li>Simulates diverse and challenging road scenarios.</li>
-                  <li>Wide range of sensors: RGB, LiDAR, IMU, GPS</li>
+                <ul class="items">
+                  <li><i>High-fidelity</i> urban environments.</li>
+                  <li>Simulates <i>diverse</i> and challenging <i>road scenarios</i>.</li>
+                  <li>Accurate <i>vehicle dynamics</i>.</li>
+                  <li>Wide range of <i>sensors</i>: RGB, LiDAR, IMU, GPS</li>
                   <li>Modular server–client architecture:</li>
-                  <ul class="items">
-                    <li>Server: runs simulation.</li>
-                    <li>Client: control agents, logs data, allow integrations.</li>
-                  </ul>
                 </ul>
               </div>
             </div>
-          </div>
 
-          <div class="fragment footer-note" style="margin: 0%;">
-            <img src="assets/CARLA_SIM.png" alt="Apollo Stack Diagram" style="max-width: 50%; height: auto; margin: 0%;" />
+          <div class="right footer-note" style="margin: 0%;">
+            <img src="assets/CARLA_SIM.gif" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
           </div>
         </section>
       </section>
@@ -530,71 +491,78 @@
         <section>
           <h3>DRL Model: Latent Soft Actor-Critic (L-SAC)</h3>
           <div class="slide-subtitle">Combines a deep RL policy with a sequential latent representation of the scene.</div>
-          <ul class="fragment items">
-            <li><i>Inputs</i>: Front-view RGB camera + LiDAR BEV projection.</li>
-            <li><i>Latent Modeling</i>:</li>
-            <ul class="fragment items">
-              <li>Learns a compact environment state via variational inference.</li>
-              <li>Supports interpretable semantic mask decoding.</li>
+          <div class="right">
+            <ul class="items">
+              <li><i>Inputs</i>: Front-view RGB + LiDAR BEV projection.</li>
+              <li><i>Latent Modeling</i>:</li>
+              <ul class="items">
+                <li>Learns a compact environment state via variational inference.</li>
+                <li>Supports interpretable semantic mask decoding.</li>
+              </ul>
+              <li><i>Policy Learning</i>:</li>
+              <ul class="items">
+                <li>Soft Actor-Critic with entropy regularization.</li>
+                <li>Outputs predicted trajectory displacements + target speeds.</li>
+                <li>Reward balances safety (collision, lane keeping) with comfort (smoothness, speed).</li>
+              </ul>
+            <li><i>Trajectory Output</i>:</li>
+              <ul class="items">
+                <li>Displacements converted into full global trajectories.</li>
+                <li>Includes heading, curvature, acceleration, and timing for Apollo compatibility.</li>
+              </ul>
             </ul>
-            <li><i>Policy Learning</i>:</li>
-            <ul class="fragment items">
-              <li>Uses Soft Actor-Critic (SAC) with entropy regularization.</li>
-              <li>Outputs predicted trajectory displacements + target speeds.</li>
-              <li>Reward balances safety (collision, lane keeping) with comfort (smoothness, speed).</li>
-            </ul>
-          <li><i>Trajectory Output</i>:</li>
-            <ul class="fragment items">
-              <li>Displacements converted into full global trajectories.</li>
-              <li>Includes heading, curvature, acceleration, and timing for Apollo compatibility.</li>
-            </ul>
-          </ul>
+          </div>
+          <div class="left">
+            <br>
+            <img src="assets/DRL_Diagram.png" alt="Apollo Stack Diagram" style="max-width: 95%; height: auto; margin: 0%;" />
+          </div>
         </section>
 
         <section>
           <h3>IL Model: TransFuser++</h3>
           <div class="slide-subtitle">Transformer-based Imitation Learning model for end-to-end urban driving.</div>
           <div class="left">
-            <ul class="fragment items">
+            <ul class="items">
               <li><i>Inputs</i>:</li>
-              <ul class="fragment items">
-                <li>RGB images (front-facing camera)</li>
-                <li>LiDAR BEV + auxiliary data (navigation commands, traffic lights)</li>
+              <ul class="items">
+                <li>RGB images (front-facing camera).</li>
+                <li>LiDAR BEV + auxiliary data.</li>
+                <li>Navigation commands.</li>
+                <li>Current vehicle speed.</li>
               </ul>
               <li><i>Fusion Strategy</i>:</li>
-              <ul class="fragment items">
+              <ul class="items">
                 <li>Modality-specific encoders.</li>
                 <li>Transformer attention for cross-modal fusion.</li>
                 <li>Decoder pooling to retain spatial structure.</li>
               </ul>
               <li><i>Predictions</i>:</li>
-              <ul class="fragment items">
+              <ul class="items">
                 <li>Waypoints (future positions relative to ego).</li>
                 <li>Discrete target speeds with confidence estimation.</li>
               </ul>
               <li><i>Training</i>:</li>
-              <ul class="fragment items">
+              <ul class="items">
                 <li>Supervised on expert trajectories from CARLA.</li>
-                <li>Losses on MSE (waypoints) and cross-entropy (speed bins).</li>
+                <li>MSE (waypoints), cross-entropy (speed bins).</li>
               </ul>
             </ul>  
           </div>
           <div class="right">
-            <img src="assets/Transfuserpp.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
-            <p style="font-size: 15px; margin-top: 0px; ">TransFuser++ Architecture Overview.R eproduced from Jager et al. (2023b)</p>
+            <img src="assets/Transfuserpp_bg.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+            <p style="font-size: 15px; margin-top: 0px; ">TransFuser++ Architecture Overview. Reproduced from Jager et al. (2023b)</p>
           </div>
         </section>
 
         <section>
           <h3>System Integration: Bridging CARLA and Apollo</h3>
-          <div class="slide-subtitle">Transformer-based Imitation Learning model for end-to-end urban driving.</div>
           <div class="fragment classical-grid" style="margin-bottom: 1%;">
             <div class="classical-column" style="margin-bottom: 0%;">
             <div class="block-content">
               <div class="block-title">📌 CARLA–Apollo Bridge Setup</div>
               <ul class="fragment items">
                 <li>A customized <i>carla_apollo_bridge</i> connects the CARLA simulator with the Apollo stack.</li>
-                <li>Translates simulated sensor data (pose, LiDAR, IMU, camera) to Apollo’s <i>cyberRT</i> format.</li>
+                <li>Translates simulated sensor data to Apollo’s <i>cyberRT</i> format.</li>
                 <li>Sends Apollo's control/planning outputs back to CARLA for closed-loop simulation.</li>
               </ul>
             </div>
@@ -613,12 +581,7 @@
           </div>
           <div class="block-content">
               <div class="block-title">📌 Pipeline Snapshot</div>
-              <ol class="fragment items">
-                <li>CARLA simulates environment.</li>
-                <li>Bridge feeds sensor data to Apollo.</li>
-                <li>Custom nodes handle data extraction, model inference, and trajectory publishing.</li>
-                <li>Apollo consumes predictions and actuates control.</li>
-              </ol>
+              <img src="assets/carla_apollo_bridge_diagram.jpg" alt="Apollo Stack Diagram" style="max-width: 80%; height: auto; margin: 0%;" />
             </div>
         </section>
 
@@ -649,14 +612,11 @@
             </div>
             <div class="classical-column" style="margin-bottom: 0%;">
             <div class="block-content">
-              <div class="block-title">📌 <i>tfpp_planner_node</i>: Trajectory Synthesis</div>
+              <div class="block-title">📌 <i>model_planner_node</i>: Trajectory Synthesis</div>
               <ul class="fragment items">
                 <li>Uses latest localization to convert predicted points to global coordinates.</li>
                 <li>Optionally applies spline smoothing.</li>
                 <li>Constructs complete <i>ADCTrajectory</i> message with:</li>
-                <ul>
-                  <li>Position, heading, curvature, speed, timestamps.</li>
-                </ul>
                 <li>Publishes to <i>/apollo/planning.</i></li>
               </ul>
             </div>
@@ -740,8 +700,8 @@
             <div class="classical-column" style="margin-bottom: 0%;">
               <div class="block-content">
                 <div class="block-title">📌 Experimental Tracks</div>
-                <ul class="fragment items">
-                  <li>Three planning pipelines integrated and tested in Apollo:</li>
+                <ul class="items">
+                  <li>Three planning pipelines integrated and tested:</li>
                   <ul class="items">
                     <li><i>Track A</i>: Classical EM Planner (baseline).</li>
                     <li><i>Track B</i>: DRL-based Latent SAC model.</li>
@@ -749,50 +709,13 @@
                   </ul>
                 </ul>
               </div>
-              <div class="block-content">
-                <div class="block-title">📌 Simulation Environment</div>
-                <ul class="fragment items">
-                  <li>CARLA's Town01 and Town 03.</li>
-                  <li>Synchronous mode with fixed parameters.</li>
-                  <li>All planners (EM, DRL, IL) tested under identical conditions.</li>
-                </ul>
-              </div>
-              <div class="block-content">
-                <div class="block-title">📌 Planner Integration</div>
-                <ul class="fragment items">
-                  <li>Real-time sensor data provided to DRL and IL agents.</li>
-                  <li>Evaluation conducted through Apollo’s modular framework.</li>
-                </ul>
-              </div>
             </div>
 
             <div class="classical-column" style="margin-bottom: 0%;">
               <div class="block-content">
-                <div class="block-title">📌 Evaluation Scenario Design</div>
-                <ul class="fragment items">
-                  <li>Custom routes designed to reflect realistic urban driving challenges:</li>
-                  <ul class="items">
-                    <li>Lane following with dynamic traffic.</li>
-                    <li>Intersection handling with traffic lights.</li>
-                    <li>Obstacle-induced lane changes.</li>
-                  </ul>
-                </ul>
-              </div>
-              <div class="block-content">
-                <div class="block-title">📌 Checkpoint Strategy</div>
-                <ul class="fragment items">
-                  <li>Each route includes:</li>
-                  <ul class="items">
-                    <li>Start + End waypoints.</li>
-                    <li>Three intermediate checkpoints as entry points.</li>
-                  </ul>
-                  <li>Ensures full scenario coverage, even if the agent fails to finish.</li>
-                </ul>
-              </div>
-              <div class="block-content">
                 <div class="block-title">📌 Repetition for Reliability</div>
-                <ul class="fragment items">
-                  <li>Each segment executed 3 times per planner.</li>
+                <ul class="items">
+                  <li>Each segment executed multiple times per planner.</li>
                   <li>Allows for assessment of consistency and generalization.</li>
                 </ul>
               </div>
@@ -875,9 +798,9 @@
             <ul class="items">
               <li><i>Environment</i>:</li>
               <ul class="items">
-                <li>Suburban-style city with a structured road grid.</li>
-                <li>Mix of residential and semi-open areas.</li>
-                <li>Signalized intersections, sidewalks, and varied visibility zones.</li>
+                <li>Compact city downtown core.</li>
+                <li>Elevation changes, multi-lane roads, large roundabouts.</li>
+                <li>High-rise buildings, overpasses.</li>
               </ul>
             </ul>
           </div>
@@ -891,175 +814,20 @@
         </section>
 
         <section>
-          <h2>TRACK A: BASELINE - APOLLO EM PLANNER</h2>
-          <div class="block-content">
-            <div class="block-title">📌 EM Planner Performance by Route Segment in Route A</div>
-            <table class="fragment styled-table">
-              <thead>
-                <tr>
-                  <th>Segment</th>
-                  <th>DS ↑</th>
-                  <th>RC ↑</th>
-                  <th>IS ↑</th>
-                  <th>Veh ↓</th>
-                  <th>Stat ↓</th>
-                  <th>Red ↓</th>
-                  <th>Dev ↓</th>
-                  <th>TD ↓</th>
-                  <th>AS ↑</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Initial Point</td>
-                  <td>96 <small>±2</small></td>
-                  <td>100</td>
-                  <td>0.96 <small>±0.05</small></td>
-                  <td>0.22</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-                  <td>0.08</td>
-                  <td>4.35</td>
-                  <td>19.8</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 1</td>
-                  <td>98 <small>±1</small></td>
-                  <td>100</td>
-                  <td>0.98 <small>±0.01</small></td>
-                  <td>0.14</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-                  <td>0.11</td>
-                  <td>3.58</td>
-                  <td>20.0</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 2</td>
-                  <td>98 <small>±0</small></td>
-                  <td>100</td>
-                  <td>0.98 <small>±0.01</small></td>
-                  <td>0.10</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-                  <td>0.13</td>
-                  <td>2.95</td>
-                  <td>20.4</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 3</td>
-                  <td>100 <small>±0</small></td>
-                  <td>100</td>
-                  <td>1.00 <small>±0.00</small></td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-                  <td>0.00</td>
-                  <td>1.35</td>
-                  <td>20.7</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="block-content">
-            <div class="block-title">📌 EM Planner Performance by Route Segment in Route B</div>
-            <table class="fragment styled-table">
-              <thead>
-                <tr>
-                  <th>Segment</th>
-                  <th>DS ↑</th>
-                  <th>RC ↑</th>
-                  <th>IS ↑</th>
-                  <th>Veh ↓</th>
-                  <th>Stat ↓</th>
-                  <th>Red ↓</th>
-                  <th>Dev ↓</th>
-                  <th>TD ↓</th>
-                  <th>AS ↑</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Initial Point</td>
-                  <td>49 <small>±3</small></td>
-                  <td>56 <small>±4</small></td>
-                  <td>0.87 <small>±0.02</small></td>
-                  <td>0.32</td>
-                  <td>0.10</td>
-                  <td>0.31</td>
-                  <td>0.25</td>
-                  <td>5.35</td>
-                  <td>18.0</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 1</td>
-                  <td>68 <small>±2</small></td>
-                  <td>75 <small>±2</small></td>
-                  <td>0.91 <small>±0.01</small></td>
-                  <td>0.25</td>
-                  <td>0.00</td>
-                  <td>0.35</td>
-                  <td>0.10</td>
-                  <td>3.20</td>
-                  <td>19.8</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 2</td>
-                  <td>57 <small>±2</small></td>
-                  <td>64 <small>±3</small></td>
-                  <td>0.88 <small>±0.02</small></td>
-                  <td>0.24</td>
-                  <td>0.05</td>
-                  <td>0.43</td>
-                  <td>0.18</td>
-                  <td>4.75</td>
-                  <td>19.0</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 3</td>
-                  <td>89 <small>±3</small></td>
-                  <td>100 <small>±2</small></td>
-                  <td>0.89 <small>±0.01</small></td>
-                  <td>0.10</td>
-                  <td>0.00</td>
-                  <td>0.46</td>
-                  <td>0.09</td>
-                  <td>1.20</td>
-                  <td>19.8</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="block-content">
-            <div class="block-title">📌 System-Level Observations</div>
-            <ul class="fragment items">
-              <li><i>Planning Cycle</i>: Average time of 102ms for Route A and 36ms for Route B.</li>
-              <li><i>Planning Success Rate</i>: Valid trajetory messages in 99.7% (Route A) and 68.7% (Route B) of planning cycles.</li>
-              <li><i>Stable control latency</i>: ~11 ms.</li>
-              <li><i>PAD Ready State</i>: Maintained 99% uptime.</li>
-            </ul>
-          </div>
-        </section>
-
-        <section>
           <h2>TRACK B: DRL-MODEL TRAINING</h2>
           <div class="classical-grid" style="margin-bottom: 1%;">
             <div class="classical-column" style="margin-bottom: 0%;">
               <div class="block-content">
                 <div class="block-title">📌 Variants evaluated</div>
-                <ul class="fragment items">
-                  <li><i>lsac_original</i>: Default InterpE2E config.</li>
-                  <li><i>lsac_params1</i>: Larger replay buffer, extended sequence length, higher batch and model batch sizes, and a slower target update period.</li>
-                  <li><i>lsac_params2</i>: urther adjusted variant of params1, exploring alternative param configurations.</li>
-                  <li><i>lsac_params3</i>: Same configuration as params1 but trained exclusively on trajectory segments extracted from the final evaluation routes.</li>
-                  <li><i>lsac_params4</i>: Same as params2, but also trained on route-specific navigation tasks.</li>
-                </ul>
-              </div>
+                <i>lsac_original</i> <br> Default InterpE2E Config <br>
+                <i>lsac_params1</i> | <i>lsac_params2</i> <br> Replay Buffer, Sequence, Batches, Target update <br>
+                <i>lsac_params3</i> | <i>lsac_params4</i> <br> Trained on route-specific navigation segments<br>
+              </div>  
             </div>
             <div class="classical-column" style="margin-bottom: 0%;">
               <div class="block-content">
                 <div class="block-title">📌 Post-Training Metrics</div>
-                <table class="fragment styled-table">
+                <table class="styled-table">
                   <thead>
                     <tr>
                       <th>Variant</th>
@@ -1098,383 +866,337 @@
               </div>
             </div>
           </div>
-        </section>
 
-        <section>
-          <h3>TRACK B: DRL-MODEL TRAINING</h3>
-          <div class="slide-subtitle">Training dynamics for perception reconstruction modules and actor-related losses across different hyperparameter sets.</div>
-            
-            <div class="classical-grid" style="margin-bottom: 1%;">
-              <div class="classical-column" style="margin-bottom: 0%;">
-                <div class="block-content">
-                  <div class="block-title">📌 Reconstruction error for camera modality.</div>
-                  <img src="assets/plots/reconstruction_error_camera Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
-                </div>
-                <div class="block-content">
-                  <div class="block-title">📌 Reconstruction error for LiDAR modality.</div>
-                  <img src="assets/plots/reconstruction_error_lidar Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
-                </div>
-              </div>
-
+          <div class="classical-grid" style="margin-bottom: 1%;">
               <div class="classical-column" style="margin-bottom: 0%;">
                 <div class="block-content">
                   <div class="block-title">📌 Reconstruction error for bird’s-eye-view input.</div>
                   <img src="assets/plots/reconstruction_error_birdeye Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
                 </div>
+              </div>
+
+              <div class="classical-column" style="margin-bottom: 0%;">
                 <div class="block-content">
-                  <div class="block-title">📌 Actor loss trend over training steps.</div>
+                  <div class="block-title">📌 Actor loss trend over training steps.</div><br>
                   <img src="assets/plots/actor_loss Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
                 </div>
               </div>
 
               <div class="classical-column" style="margin-bottom: 0%;">
                 <div class="block-content">
-                  <br><br><br><br>
-                  <div class="block-title">📌 Alpha loss trend (entropy regularization) during training.</div>
-                  <img src="assets/plots/alpha_loss Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
+                  <div class="block-title">📌 Average episode return (evaluation policy).</div>
+                  <img src="assets/plots/AverageReturnEvalPolicy Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
                 </div>
               </div>
             </div>
         </section>
 
         <section>
-          <h3>TRACK B: DRL-MODEL TRAINING</h3>
-          <div class="slide-subtitle">Policy-level performance during L-SAC training.</div>
-            
-            <div class="classical-grid" style="margin-bottom: 1%;">
-              <div class="classical-column" style="margin-bottom: 0%;">
-                <div class="block-content">
-                  <div class="block-title">📌 Average episode length (training policy).</div>
-                  <img src="assets/plots/AverageEpisodeLength Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
-                </div>
-                <div class="block-content">
-                  <div class="block-title">📌 Average episode length (evaluation policy).</div>
-                  <img src="assets/plots/AverageEpisodeLengthEvalPolicy Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
-                </div>
-              </div>
-
-              <div class="classical-column" style="margin-bottom: 0%;">
-                <div class="block-content">
-                  <div class="block-title">📌 Average episodic return (training policy).</div>
-                  <img src="assets/plots/AverageReturn Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
-                </div>
-                <div class="block-content">
-                  <div class="block-title">📌 Average episodic return (evaluation policy).</div>
-                  <img src="assets/plots/AverageReturn Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
-                </div>
-              </div>
-
-              <div class="classical-column" style="margin-bottom: 0%;">
-                <div class="block-content">
-                  <br><br><br><br>
-                  <div class="block-title">📌 Critic loss convergence across training runs.</div>
-                  <img src="assets/plots/critic_loss Comparison_1M.png" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
-                </div>
+          <h2>Planners performance on route</h2>
+          <div class="classical-grid" style="margin-bottom: 0%; gap: 3%;">
+            <div class="classical-column" style="margin-bottom: 0%;">
+              <div class="block-content">
+                <div class="block-title">📌 TRACK A: APOLLO EM PLANNER</div>
+                <table class="fragment styled-table" style="width: 100%;" data-fragment-index="1">
+                  <thead>
+                    <tr>
+                      <th>Segment</th>
+                      <th>DS ↑</th>
+                      <th>RC ↑</th>
+                      <th>IS ↑</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Initial Point</td>
+                      <td>96 <small>±2</small></td>
+                      <td>100</td>
+                      <td>0.96 <small>±0.05</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 1</td>
+                      <td>98 <small>±1</small></td>
+                      <td>100</td>
+                      <td>0.98 <small>±0.01</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 2</td>
+                      <td>98 <small>±0</small></td>
+                      <td>100</td>
+                      <td>0.98 <small>±0.01</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 3</td>
+                      <td>100 <small>±0</small></td>
+                      <td>100</td>
+                      <td>1.00 <small>±0.00</small></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
+
+            <div class="classical-column" style="margin-bottom: 0%;">         
+              <div class="block-content">
+                <div class="block-title">📌 TRACK B: DRL-PLANNER PLANNER</div>
+                <table class="fragment styled-table" style="width: 100%;" data-fragment-index="1">
+                  <thead>
+                    <tr>
+                      <th>Segment</th>
+                      <th>DS ↑</th>
+                      <th>RC ↑</th>
+                      <th>IS ↑</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Initial Point</td>
+                      <td>16 <small>±6</small></td>
+                      <td>30 <small>±7</small></td>
+                      <td>0.53 <small>±0.16</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 1</td>
+                      <td>27 <small>±4</small></td>
+                      <td>46 <small>±5</small></td>
+                      <td>0.58 <small>±0.14</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 2</td>
+                      <td>26 <small>±8</small></td>
+                      <td>44 <small>±6</small></td>
+                      <td>0.60 <small>±0.25</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 3</td>
+                      <td>36 <small>±11</small></td>
+                      <td>60 <small>±4</small></td>
+                      <td>0.60 <small>±0.09</small></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="classical-column" style="margin-bottom: 0%;">
+              <div class="block-content">
+                <div class="block-title">📌 TRACK C: IL-PLANNER PLANNER</div>
+                <table class="fragment styled-table" style="width: 100%;" data-fragment-index="1">
+                  <thead>
+                    <tr>
+                      <th>Segment</th>
+                      <th>DS ↑</th>
+                      <th>RC ↑</th>
+                      <th>IS ↑</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Initial Point</td>
+                      <td>54 <small>±4</small></td>
+                      <td>70 <small>±5</small></td>
+                      <td>0.76 <small>±0.04</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 1</td>
+                      <td>66 <small>±3</small></td>
+                      <td>82 <small>±3</small></td>
+                      <td>0.80 <small>±0.02</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 2</td>
+                      <td>61 <small>±3</small></td>
+                      <td>78 <small>±4</small></td>
+                      <td>0.77 <small>±0.03</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 3</td>
+                      <td>84 <small>±5</small></td>
+                      <td>100 <small>±2</small></td>
+                      <td>0.84 <small>±0.01</small></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <p style="margin: 0%; padding: 0;" class="fragment" data-fragment-index="1"><i>ROUTE A</i></p>
+          <hr style="
+            border: none;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #CD5B45, transparent);
+            margin: 10px auto;
+            width: 100%;
+          ">
+          <!-- <p style="margin: 0%; padding: 0;"><i>ROUTE B</i></p> -->
+
+          <div class="classical-grid" style="margin-bottom: 1%; gap: 3%;">
+            <div class="classical-column" style="margin-bottom: 0%;">
+              <div class="block-content">
+                <table class="fragment styled-table" style="width: 100%;" data-fragment-index="2">
+                  <thead>
+                    <tr>
+                      <th>Segment</th>
+                      <th>DS ↑</th>
+                      <th>RC ↑</th>
+                      <th>IS ↑</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Initial Point</td>
+                      <td>49 <small>±3</small></td>
+                      <td>56 <small>±4</small></td>
+                      <td>0.87 <small>±0.02</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 1</td>
+                      <td>68 <small>±2</small></td>
+                      <td>75 <small>±2</small></td>
+                      <td>0.91 <small>±0.01</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 2</td>
+                      <td>57 <small>±2</small></td>
+                      <td>64 <small>±3</small></td>
+                      <td>0.88 <small>±0.02</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 3</td>
+                      <td>89 <small>±3</small></td>
+                      <td>100 <small>±2</small></td>
+                      <td>0.89 <small>±0.01</small></td>
+                    </tr>
+                  </tbody>
+                </table>    
+              </div>
+            </div>
+
+            <div class="classical-column" style="margin-bottom: 0%;">         
+              <div class="block-content">
+                <table class="fragment styled-table" style="width: 100%;" data-fragment-index="2">
+                  <thead>
+                    <tr>
+                      <th>Segment</th>
+                      <th>DS ↑</th>
+                      <th>RC ↑</th>
+                      <th>IS ↑</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Initial Point</td>
+                      <td>21 <small>±6</small></td>
+                      <td>38 <small>±6</small></td>
+                      <td>0.55 <small>±0.05</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 1</td>
+                      <td>30 <small>±4</small></td>
+                      <td>53 <small>±4</small></td>
+                      <td>0.56 <small>±0.03</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 2</td>
+                      <td>13 <small>±7</small></td>
+                      <td>25 <small>±7</small></td>
+                      <td>0.50 <small>±0.06</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 3</td>
+                      <td>22 <small>±5</small></td>
+                      <td>40 <small>±5</small></td>
+                      <td>0.54 <small>±0.04</small></td>
+                    </tr>
+                  </tbody>
+                </table>    
+              </div>
+            </div>
+
+            <div class="classical-column" style="margin-bottom: 0%;">
+              <div class="block-content">
+                <table class="fragment styled-table" style="width: 100%;" data-fragment-index="2">
+                  <thead>
+                    <tr>
+                      <th>Segment</th>
+                      <th>DS ↑</th>
+                      <th>RC ↑</th>
+                      <th>IS ↑</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Initial Point</td>
+                      <td>58 <small>±5</small></td>
+                      <td>68 <small>±6</small></td>
+                      <td>0.85 <small>±0.04</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 1</td>
+                      <td>64 <small>±4</small></td>
+                      <td>75 <small>±5</small></td>
+                      <td>0.85 <small>±0.03</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 2</td>
+                      <td>70 <small>±3</small></td>
+                      <td>80 <small>±3</small></td>
+                      <td>0.88 <small>±0.02</small></td>
+                    </tr>
+                    <tr>
+                      <td>Checkpoint 3</td>
+                      <td>91 <small>±4</small></td>
+                      <td>100 <small>±2</small></td>
+                      <td>0.91 <small>±0.06</small></td>
+                    </tr>
+                  </tbody>
+                </table>    
+              </div>
+            </div>
+          </div>
+
+          <p style="margin: 0%; padding: 0;" class="fragment" data-fragment-index="2"><i>ROUTE B</i></p>
         </section>
 
         <section>
-          <h2>TRACK B: DRL-BASED PLANNER</h2>
-          <div class="block-content">
-            <div class="block-title">📌 DRL Planner Performance by Route Segment in Route A</div>
-            <table class="fragment styled-table">
-              <thead>
-                <tr>
-                  <th>Segment</th>
-                  <th>DS ↑</th>
-                  <th>RC ↑</th>
-                  <th>IS ↑</th>
-                  <th>Veh ↓</th>
-                  <th>Stat ↓</th>
-                  <th>Red ↓</th>
-                  <th>Dev ↓</th>
-                  <th>TD ↓</th>
-                  <th>AS ↑</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Initial Point</td>
-                  <td>16 <small>±6</small></td>
-                  <td>30 <small>±7</small></td>
-                  <td>0.53 <small>±0.16</small></td>
-                  <td>0.46</td>
-                  <td>0.25</td>
-                  <td>0.34</td>
-                  <td>0.33</td>
-                  <td>2.33</td>
-                  <td>24.5</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 1</td>
-                  <td>27 <small>±4</small></td>
-                  <td>46 <small>±5</small></td>
-                  <td>0.58 <small>±0.14</small></td>
-                  <td>0.33</td>
-                  <td>0.12</td>
-                  <td>0.50</td>
-                  <td>0.22</td>
-                  <td>1.76</td>
-                  <td>31.2</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 2</td>
-                  <td>26 <small>±8</small></td>
-                  <td>44 <small>±6</small></td>
-                  <td>0.60 <small>±0.25</small></td>
-                  <td>0.43</td>
-                  <td>0.16</td>
-                  <td>0.42</td>
-                  <td>0.36</td>
-                  <td>2.03</td>
-                  <td>18.0</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 3</td>
-                  <td>36 <small>±11</small></td>
-                  <td>60 <small>±4</small></td>
-                  <td>0.60 <small>±0.09</small></td>
-                  <td>0.29</td>
-                  <td>0.78</td>
-                  <td>0.00</td>
-                  <td>0.21</td>
-                  <td>1.31</td>
-                  <td>27.8</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="block-content">
-            <div class="block-title">📌 DRL Planner Performance by Route Segment in Route B</div>
-            <table class="fragment styled-table">
-              <thead>
-                <tr>
-                  <th>Segment</th>
-                  <th>DS ↑</th>
-                  <th>RC ↑</th>
-                  <th>IS ↑</th>
-                  <th>Veh ↓</th>
-                  <th>Stat ↓</th>
-                  <th>Red ↓</th>
-                  <th>Dev ↓</th>
-                  <th>TD ↓</th>
-                  <th>AS ↑</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Initial Point</td>
-                  <td>21 <small>±6</small></td>
-                  <td>38 <small>±6</small></td>
-                  <td>0.55 <small>±0.05</small></td>
-                  <td>0.42</td>
-                  <td>0.12</td>
-                  <td>0.54</td>
-                  <td>0.35</td>
-                  <td>2.49</td>
-                  <td>23.8</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 1</td>
-                  <td>30 <small>±4</small></td>
-                  <td>53 <small>±4</small></td>
-                  <td>0.56 <small>±0.03</small></td>
-                  <td>0.32</td>
-                  <td>0.25</td>
-                  <td>0.56</td>
-                  <td>0.25</td>
-                  <td>0.56</td>
-                  <td>36.5</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 2</td>
-                  <td>13 <small>±7</small></td>
-                  <td>25 <small>±7</small></td>
-                  <td>0.50 <small>±0.06</small></td>
-                  <td>0.50</td>
-                  <td>0.32</td>
-                  <td>0.38</td>
-                  <td>0.43</td>
-                  <td>2.70</td>
-                  <td>22.2</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 3</td>
-                  <td>22 <small>±5</small></td>
-                  <td>40 <small>±5</small></td>
-                  <td>0.54 <small>±0.04</small></td>
-                  <td>0.37</td>
-                  <td>0.12</td>
-                  <td>0.61</td>
-                  <td>0.32</td>
-                  <td>1.95</td>
-                  <td>25.1</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="block-content">
-            <div class="block-title">📌 System-Level Observations</div>
-            <ul class="fragment items">
-              <li><i>Planning Cycle</i>: Average time of 97ms for Route A and 94ms for Route B.</li>
-              <li><i>Planning Success Rate</i>: Valid trajetory messages in 63.6% of planning cycles.</li>
-              <li><i>Stable control latency</i>: ~25 ms.</li>
-              <li><i>PAD Ready State</i>: Maintained 72.4% uptime.</li>
-            </ul>
-          </div>
+          <h2> APOLLO SYSTEM LEVEL Evaluation</h2>
+          <table class="styled-table" style="width: 100%; text-align: center;">
+            <thead>
+              <tr>
+                <th>Planner</th>
+                <th>Planning Cycle (ms)</th>
+                <th>Success Rate (%)</th>
+                <th>Control Latency (ms)</th>
+                <th>PAD Ready Uptime (%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>EM Planner</td>
+                <td>69</td> <!-- avg(102, 36) -->
+                <td>84.2</td> <!-- avg(99.7, 68.7) -->
+                <td>11</td>
+                <td>99.0</td>
+              </tr>
+              <tr>
+                <td>DRL Planner</td>
+                <td>95.5</td> <!-- avg(97, 94) -->
+                <td>63.6</td>
+                <td>25</td>
+                <td>72.4</td>
+              </tr>
+              <tr>
+                <td>IL Planner</td>
+                <td>681 <small>±450</small></td>
+                <td>91.4</td>
+                <td>22</td>
+                <td>88.7</td>
+              </tr>
+            </tbody>
+          </table>
         </section>
 
-        <section>
-          <h2>TRACK C: IL-BASED PLANNER</h2>
-          <div class="block-content">
-            <div class="block-title">📌 IL Planner Performance by Route Segment in Route A</div>
-            <table class="fragment styled-table">
-              <thead>
-                <tr>
-                  <th>Segment</th>
-                  <th>DS ↑</th>
-                  <th>RC ↑</th>
-                  <th>IS ↑</th>
-                  <th>Veh ↓</th>
-                  <th>Stat ↓</th>
-                  <th>Red ↓</th>
-                  <th>Dev ↓</th>
-                  <th>TD ↓</th>
-                  <th>AS ↑</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Initial Point</td>
-                  <td>54 <small>±4</small></td>
-                  <td>70 <small>±5</small></td>
-                  <td>0.76 <small>±0.04</small></td>
-                  <td>0.32</td>
-                  <td>0.15</td>
-                  <td>0.19</td>
-                  <td>0.22</td>
-                  <td>4.20</td>
-                  <td>21.2</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 1</td>
-                  <td>66 <small>±3</small></td>
-                  <td>82 <small>±3</small></td>
-                  <td>0.80 <small>±0.02</small></td>
-                  <td>0.17</td>
-                  <td>0.08</td>
-                  <td>0.11</td>
-                  <td>0.16</td>
-                  <td>3.63</td>
-                  <td>22.7</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 2</td>
-                  <td>61 <small>±3</small></td>
-                  <td>78 <small>±4</small></td>
-                  <td>0.77 <small>±0.03</small></td>
-                  <td>0.25</td>
-                  <td>0.10</td>
-                  <td>0.16</td>
-                  <td>0.13</td>
-                  <td>2.92</td>
-                  <td>21.4</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 3</td>
-                  <td>84 <small>±5</small></td>
-                  <td>100 <small>±2</small></td>
-                  <td>0.84 <small>±0.01</small></td>
-                  <td>0.13</td>
-                  <td>0.03</td>
-                  <td>0.04</td>
-                  <td>0.09</td>
-                  <td>1.23</td>
-                  <td>24.2</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="block-content">
-            <div class="block-title">📌 IL Planner Performance by Route Segment in Route B</div>
-            <table class="fragment styled-table">
-              <thead>
-                <tr>
-                  <th>Segment</th>
-                  <th>DS ↑</th>
-                  <th>RC ↑</th>
-                  <th>IS ↑</th>
-                  <th>Veh ↓</th>
-                  <th>Stat ↓</th>
-                  <th>Red ↓</th>
-                  <th>Dev ↓</th>
-                  <th>TD ↓</th>
-                  <th>AS ↑</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Initial Point</td>
-                  <td>58 <small>±5</small></td>
-                  <td>68 <small>±6</small></td>
-                  <td>0.85 <small>±0.04</small></td>
-                  <td>0.12</td>
-                  <td>0.16</td>
-                  <td>0.14</td>
-                  <td>0.12</td>
-                  <td>2.34</td>
-                  <td>20.5</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 1</td>
-                  <td>64 <small>±4</small></td>
-                  <td>75 <small>±5</small></td>
-                  <td>0.85 <small>±0.03</small></td>
-                  <td>0.15</td>
-                  <td>0.00</td>
-                  <td>0.08</td>
-                  <td>0.13</td>
-                  <td>2.73</td>
-                  <td>21.8</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 2</td>
-                  <td>70 <small>±3</small></td>
-                  <td>80 <small>±3</small></td>
-                  <td>0.88 <small>±0.02</small></td>
-                  <td>0.14</td>
-                  <td>0.03</td>
-                  <td>0.09</td>
-                  <td>0.12</td>
-                  <td>2.66</td>
-                  <td>23.5</td>
-                </tr>
-                <tr>
-                  <td>Checkpoint 3</td>
-                  <td>91 <small>±4</small></td>
-                  <td>100 <small>±2</small></td>
-                  <td>0.91 <small>±0.06</small></td>
-                  <td>0.11</td>
-                  <td>0.02</td>
-                  <td>0.05</td>
-                  <td>0.08</td>
-                  <td>1.32</td>
-                  <td>24.4</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="block-content">
-            <div class="block-title">📌 System-Level Observations</div>
-            <ul class="fragment items">
-              <li><i>Planning Cycle</i>: Average time of 681<small>±450</small>ms.</li>
-              <li><i>Planning Success Rate</i>: Valid trajetory messages in 91.4% of planning cycles.</li>
-              <li><i>Stable control latency</i>: ~22 ms.</li>
-              <li><i>PAD Ready State</i>: Maintained 88.7% uptime.</li>
-            </ul>
-          </div>
-        </section>
       </section>
 
       <!-- ------------- Slide 7 ------------------ -->
@@ -1486,7 +1208,7 @@
         <section>
           <h3>Planners Performance Summary</h3>
           <div class="block-content">
-            <div class="block-title">📌 Metrics averaged across all route segments for each planner.</div>
+            <div class="block-title">📌 Metrics averaged across all route segments for each planner</div>
             <table class="styled-table">
               <thead>
                 <tr>
@@ -1551,33 +1273,33 @@
           <div class="classical-grid" style="margin-bottom: 1%;">
             <div class="classical-column" style="margin-bottom: 0%;">
               <div class="block-content">
-                <div class="block-title">📌 Route Completion vs. Deviation.</div>
+                <div class="block-title">📌 Route Completion vs. Deviation</div>
                 <img src="assets/analysis/RC_vs_Dev.jpg" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
               </div>
               <div class="block-content">
-                <div class="block-title">📌 Safety vs Compliance Radar.</div>
+                <div class="block-title">📌 Safety vs Compliance Radar</div>
                 <img src="assets/analysis/safety_vs_compliance.jpg" alt="Apollo Stack Diagram" style="max-width: 88%; height: auto; margin: 0%;" />
               </div>
             </div>
 
             <div class="classical-column" style="margin-bottom: 0%;">
               <div class="block-content">
-                <div class="block-title">📌 Driving Score vs. Average Speed.</div>
+                <div class="block-title">📌 Driving Score vs. Average Speed</div>
                 <img src="assets/analysis/DS_vs_AS.jpg" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
               </div>
               <div class="block-content">
-                <div class="block-title">📌 Infraction Breakdown Bars.</div>
+                <div class="block-title">📌 Infraction Breakdown Bars</div>
                 <img src="assets/analysis/breakdown.jpg" alt="Apollo Stack Diagram" style="max-width: 100%; height: auto; margin: 0%;" />
               </div>
             </div>
 
             <div class="classical-column" style="margin-bottom: 0%;">
               <div class="block-content">
-                <div class="block-title">📌 Driving Quality Radar.</div>
+                <div class="block-title">📌 Driving Quality Radar</div>
                 <img src="assets/analysis/driving_quality.jpg" alt="Apollo Stack Diagram" style="max-width: 88%; height: auto; margin: 0%;" />
               </div>
               <div class="block-content">
-                <div class="block-title">📌 Composite Planner Comparison.</div>
+                <div class="block-title">📌 Composite Planner Comparison</div>
                 <img src="assets/analysis/composite_metric.jpg" alt="Apollo Stack Diagram" style="max-width: 88%; height: auto; margin: 0%;" />
               </div>
             </div>
@@ -1609,6 +1331,10 @@
             <li><i>Comprehensive evaluation</i>:</li>
               <ul class="items">
                 <li>Compared trajectory, safety, efficiency, and system-level metrics.</li>
+              </ul>
+            <li><i>Methodology Development</i>:</li>
+              <ul class="items">
+                <li>A structures methodology to integrate learned-based planners into modularized frameworks.</li>
               </ul>
             </ul>
             <li><b>Key Takeaways</b></li>
@@ -1643,11 +1369,7 @@
 
         <section>
           <h2>Final Remarks</h2>
-          <ul class="fragment items">
-                <li>This work performed a modular integration of DRL and IL planners into Apollo—bridging academic learning-based methods with industry-grade AV stacks.</li>
-                <li>While end-to-end learning catches attention, hybrid approaches offer a realistic path forward, balancing adaptability with safety and explainability.</li>
-                <li>DRL and IL are not replacements for classical planning yet—but when carefully integrated, they can potencially enhance perception, reactivity, and contextual decision-making.</li>
-            </ul>
+            <p style="text-align: justify; font-size: 70%;">This work achieved a modular integration of DRL and IL planners into the Apollo framework, <span class="fragment highlight-blue">bridging academic learning-based methods with an industry-grade autonomous driving stack</span>. While end-to-end learning models receive significant attention, this study emphasizes <span class="fragment highlight-red">hybrid approaches as a practical and robust option, balancing adaptability with safety and interpretability</span>. Although DRL and IL are not yet replacements for classical planning systems, their careful integration can help to <span class="fragment highlight-blue">improve perception, reactivity, and context-aware decision-making within modern AV architectures</span>.</p>
         </section>
       </section>
 
@@ -1657,13 +1379,24 @@
       </section>
 
       <!-- ------------- Cover ------------------ -->
+      <div class="slides">
+      <!-- ------------- Cover ------------------ -->
       <section data-transition="zoom" data-auto-width data-auto-height>
-        <h3 class="fragment" style="color: #79b6c9;">FROM RULES TO REWARDS</h3>
-        <h2 class="fragment">AI PATH PLANNING FOR AUTONOMOUS DRIVING WITHIN THE CARLA-APOLLO FRAMEWORK</h2>
-            <p class="fragment" style="font-size: 30px;">MASTER IN ARTIFICIAL INTELLIGENCE | MARIO ROSAS OTERO</p>
-            <!--<p class="fragment" style="font-size: 30px;">MARIO ROSAS OTERO | MASTER IN ARTIFICIAL INTELLIGENCE</p>-->
-            <p class="fragment" style="font-size: 20px;">Supervised by: Ph.D. Axel Brando and Ph.D. Enrico Mezzetti | May 2025</p>
+        <div style="display: flex; justify-content: space-around; align-items: center; margin-bottom: 20px;">
+          <img src="assets/Logos/URV.png" alt="URV" style="max-width: 25%; height: auto;" />
+          <img src="assets/Logos/UB.png" alt="UB" style="max-width: 25%; height: auto;" />
+          <img src="assets/Logos/UPC.png" alt="UPC" style="max-width: 25%; height: auto;" />
+        </div>
+
+        <h3 class="fragment" style="color: #79b6c9; margin-bottom: 0%;" data-fragment-index="0">FROM RULES TO REWARDS</h3>
+        <h2 class="fragment" data-fragment-index="0">AI PATH PLANNING FOR AUTONOMOUS DRIVING WITHIN THE CARLA-APOLLO FRAMEWORK</h2>
+        <p style="font-size: 30px;">MASTER IN ARTIFICIAL INTELLIGENCE | MARIO ROSAS OTERO</p>
+        <p style="font-size: 20px;">Supervised by: Axel Brando (BSC-CNS) & Enrico Mezzetti (BSC-CNS) |  Tutor: Miquel Moretó (UPC) </p>
+
+        <img src="assets/Logos/BSC-blue-large.png" alt="URV" style="max-width: 25%; height: auto; margin-top: 0%;" />
+        
       </section>
+
 
 
       <script src="dist/reveal.js"></script>

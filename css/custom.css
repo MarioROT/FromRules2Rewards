@@ -152,7 +152,8 @@
 
 .styled-table th, .styled-table td {
     padding: 10px 16px;
-    text-align: left;
+    text-align: center;
+    vertical-align: middle;
     border: none;
 }
 
@@ -260,3 +261,148 @@
     bottom: 20px;       /* Optional: adjust position */
     right: 30px;
   }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 40%;
+  background: linear-gradient(#fdf6e3, #fdf6e3);
+  box-shadow: 0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12);
+  border-radius: 8px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 88%;
+  width: 88%;
+  background-color: #FBCEB1;
+  border-radius: 8px;
+}
+
+.content > .top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 20%;
+  background-color: white;
+  
+  .card_p {
+    font-weight: bold;
+    font-size: 12px;
+  }
+  
+  .color {
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: orange;
+  }
+}
+
+.content > .middle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40%;
+  background: linear-gradient(#fdf6e3, #fdf6e3 75%);
+  padding-left: 15px;
+  padding-right: 15px;
+  
+  img {
+    width: 100%;
+  }
+  
+  div > .card_p:first-child {
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+  
+  div > .card_p:last-child {
+    margin: 0;
+    font-weight: bold;
+  }
+}
+
+.content > .bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80%;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #FBCEB1;
+  
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .card_p:first-child {
+      font-weight: bold;
+    }
+  }
+}
+
+
+
+.planning-slide {
+  background-color: #fdf6e3;
+  padding: 2em;
+  font-family: 'Segoe UI', sans-serif;
+  border-radius: 8px;
+  color: #333;
+}
+
+.planning-slide h2 {
+  text-align: center;
+  margin-bottom: 0.3em;
+}
+
+.planning-slide .subtitle {
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 1.5em;
+}
+
+.planning-slide .planning-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  justify-content: center;
+}
+
+.planning-slide .box {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 1em;
+  width: 260px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.05);
+}
+
+.planning-slide .box h3 {
+  margin-top: 0;
+  color: #073642;
+}
+
+.planning-slide .box ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.planning-slide .warning {
+  margin-top: 2em;
+  text-align: center;
+  color: #b22222;
+  font-weight: bold;
+}
